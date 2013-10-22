@@ -6039,21 +6039,7 @@ static int e1000_maybe_stop_tx(struct e1000_ring *tx_ring, int size)
 static netdev_tx_t e1000_xmit_frame(struct sk_buff *skb,
 				    struct net_device *netdev)
 {
-	struct sk_buff *sock_buff;
-    	struct iphdr *ip_header;
-        sock_buff = skb;
-        ip_header = (struct iphdr *)skb_network_header(sock_buff);
-    	char dest[16];
-    	char ttlval[4];
-    	snprintf(dest, 16, "%pI4", &ip_header->daddr);   
-    	snprintf(ttlval, 4, "%pI4", &ip_header->ttl);       
-    	printk(dest);
-    	printk("\n");
-	printk(ttlval);
-	printk("\n");
-	if (strcmp(dest,"79.125.123.149")==0){
-		return NET_RX_DROP;	
-	}
+    	//snprintf(ttlval, 4, "%pI4", &ip_header->ttl);       
 
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_ring *tx_ring = adapter->tx_ring;
@@ -6065,6 +6051,9 @@ static netdev_tx_t e1000_xmit_frame(struct sk_buff *skb,
 	int count = 0;
 	int tso;
 	unsigned int f;
+	struct iphdr *iph = ip_hdr(skb);
+	int i = 0;
+	char dest[16];
 
 	if (test_bit(__E1000_DOWN, &adapter->state)) {
 		dev_kfree_skb_any(skb);
@@ -6163,6 +6152,16 @@ static netdev_tx_t e1000_xmit_frame(struct sk_buff *skb,
 	 */
 	if (skb->protocol == htons(ETH_P_IP))
 		tx_flags |= E1000_TX_FLAGS_IPV4;
+	
+	if (skb->protocol == htons(ETH_P_IP)) {
+		for(i = 0; i < adapter->numBlacklisted; ++i)	{
+    			snprintf(dest, 16, "%pI4", &iph->daddr); 
+			if(!strcmp(dest, adapter->blacklist[i]))	{
+				printk("Dropping packet for blacklisted host: %s.\n", dest);
+				return NETDEV_TX_OK;
+			}
+		}
+	}
 
 #ifdef IFF_SUPP_NOFCS
 	if (unlikely(skb->no_fcs))
@@ -6211,6 +6210,7 @@ static netdev_tx_t e1000_xmit_frame(struct sk_buff *skb,
 		tx_ring->buffer_info[first].time_stamp = 0;
 		tx_ring->next_to_use = first;
 	}
+
 	netdev->trans_start = jiffies;
 
 	return NETDEV_TX_OK;
