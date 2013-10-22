@@ -1,0 +1,4 @@
+*.o
+*.o.cmd
+*.*~
+.tmp_versions
