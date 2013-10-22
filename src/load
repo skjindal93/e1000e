@@ -33,7 +33,7 @@ KernelVersion=$(uname -r)
 
 K_VERSION=`uname -r| cut -c1-3 | sed 's/2\.[56]/2\.6/'`
 
-DriverName=e1000e_custom
+DriverName=e1000e
 if [ "$K_VERSION" = "2.4" ]
 then
     DriverFileName=$DriverName.o
@@ -47,4 +47,4 @@ cp $SOURCE_DIR/$DriverFileName /lib/modules/$KernelVersion/kernel/drivers/net
 echo "Try and unload the old driver..."
 rmmod -s $DriverName
 echo "Installed!!"
-insmod e1000e_custom.ko
+insmod e1000e.ko

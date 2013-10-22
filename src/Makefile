@@ -45,7 +45,7 @@ ifeq ($(filter %E1000E_PTP,$(CFLAGS_EXTRA)),-DE1000E_PTP)
   CFILES += ptp.c
 endif
 
-DRIVER_NAME = e1000e_custom
+DRIVER_NAME = e1000e
 
 ###########################################################################
 # Environment tests
