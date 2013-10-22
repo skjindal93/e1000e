@@ -1,4 +1,9 @@
 *.o
 *.o.cmd
-*.*~
+*~
 .tmp_versions
+*.ko.cmd
+*.ko
+Module.symvers
+e1000e_custom.mod.c
+modules.order
