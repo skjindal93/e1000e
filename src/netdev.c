@@ -144,6 +144,7 @@ static const struct e1000_reg_info e1000_reg_info_tbl[] = {
  **/
 static void e1000_regdump(struct e1000_hw *hw, struct e1000_reg_info *reginfo)
 {
+	printk("called: %s\n", __func__);
 	int n = 0;
 	char rname[16];
 	u32 regs[8];
@@ -174,6 +175,7 @@ static void e1000_regdump(struct e1000_hw *hw, struct e1000_reg_info *reginfo)
 static void e1000e_dump_ps_pages(struct e1000_adapter *adapter,
 				 struct e1000_buffer *bi)
 {
+	printk("called: %s\n", __func__);
 	int i;
 	struct e1000_ps_page *ps_page;
 
@@ -195,6 +197,7 @@ static void e1000e_dump_ps_pages(struct e1000_adapter *adapter,
  **/
 static void e1000e_dump(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = adapter->netdev;
 	struct e1000_hw *hw = &adapter->hw;
 	struct e1000_reg_info *reginfo;
@@ -471,6 +474,7 @@ rx_ring_summary:
  **/
 static int e1000_desc_unused(struct e1000_ring *ring)
 {
+	printk("called: %s\n", __func__);
 	if (ring->next_to_clean > ring->next_to_use)
 		return ring->next_to_clean - ring->next_to_use - 1;
 
@@ -496,6 +500,7 @@ static void e1000e_systim_to_hwtstamp(struct e1000_adapter *adapter,
 				      struct skb_shared_hwtstamps *hwtstamps,
 				      u64 systim)
 {
+	printk("called: %s\n", __func__);
 	u64 ns;
 	unsigned long flags;
 
@@ -520,6 +525,7 @@ static void e1000e_systim_to_hwtstamp(struct e1000_adapter *adapter,
 static void e1000e_rx_hwtstamp(struct e1000_adapter *adapter, u32 status,
 			       struct sk_buff *skb)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u64 rxstmp;
 
@@ -554,6 +560,7 @@ static void e1000_receive_skb(struct e1000_adapter *adapter,
 			      struct net_device *netdev, struct sk_buff *skb,
 			      u32 staterr, __le16 vlan)
 {
+	printk("called: %s\n", __func__);
 #ifndef CONFIG_E1000E_NAPI
 	int ret;
 #endif
@@ -615,6 +622,7 @@ static void e1000_receive_skb(struct e1000_adapter *adapter,
 static void e1000_rx_checksum(struct e1000_adapter *adapter, u32 status_err,
 			      struct sk_buff *skb)
 {
+	printk("called: %s\n", __func__);
 	u16 status = (u16)status_err;
 	u8 errors = (u8)(status_err >> 24);
 
@@ -650,6 +658,7 @@ static void e1000_rx_checksum(struct e1000_adapter *adapter, u32 status_err,
 
 static void e1000e_update_rdt_wa(struct e1000_ring *rx_ring, unsigned int i)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = rx_ring->adapter;
 	struct e1000_hw *hw = &adapter->hw;
 	s32 ret_val = __ew32_prepare(hw);
@@ -666,6 +675,7 @@ static void e1000e_update_rdt_wa(struct e1000_ring *rx_ring, unsigned int i)
 
 static void e1000e_update_tdt_wa(struct e1000_ring *tx_ring, unsigned int i)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = tx_ring->adapter;
 	struct e1000_hw *hw = &adapter->hw;
 	s32 ret_val = __ew32_prepare(hw);
@@ -687,6 +697,7 @@ static void e1000e_update_tdt_wa(struct e1000_ring *tx_ring, unsigned int i)
 static void e1000_alloc_rx_buffers(struct e1000_ring *rx_ring,
 				   int cleaned_count, gfp_t gfp)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = rx_ring->adapter;
 	struct net_device *netdev = adapter->netdev;
 	struct pci_dev *pdev = adapter->pdev;
@@ -755,6 +766,7 @@ map_skb:
 static void e1000_alloc_rx_buffers_ps(struct e1000_ring *rx_ring,
 				      int cleaned_count, gfp_t gfp)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = rx_ring->adapter;
 	struct net_device *netdev = adapter->netdev;
 	struct pci_dev *pdev = adapter->pdev;
@@ -861,6 +873,7 @@ no_buffers:
 static void e1000_alloc_jumbo_rx_buffers(struct e1000_ring *rx_ring,
 					 int cleaned_count, gfp_t gfp)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = rx_ring->adapter;
 	struct net_device *netdev = adapter->netdev;
 	struct pci_dev *pdev = adapter->pdev;
@@ -942,6 +955,7 @@ check_page:
 static inline void e1000_rx_hash(struct net_device *netdev, __le32 rss,
 				 struct sk_buff *skb)
 {
+	printk("called: %s\n", __func__);
 	if (netdev->features & NETIF_F_RXHASH)
 		skb->rxhash = le32_to_cpu(rss);
 }
@@ -1121,6 +1135,7 @@ next_desc:
 static void e1000_put_txbuf(struct e1000_ring *tx_ring,
 			    struct e1000_buffer *buffer_info)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = tx_ring->adapter;
 
 	if (buffer_info->dma) {
@@ -1143,6 +1158,7 @@ static void e1000_put_txbuf(struct e1000_ring *tx_ring,
 
 static void e1000_print_hw_hang(struct work_struct *work)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = container_of(work,
 						     struct e1000_adapter,
 						     print_hang_task);
@@ -1229,6 +1245,7 @@ static void e1000_print_hw_hang(struct work_struct *work)
  */
 static void e1000e_tx_hwtstamp_work(struct work_struct *work)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = container_of(work, struct e1000_adapter,
 						     tx_hwtstamp_work);
 	struct e1000_hw *hw = &adapter->hw;
@@ -1264,6 +1281,7 @@ static void e1000e_tx_hwtstamp_work(struct work_struct *work)
  **/
 static bool e1000_clean_tx_irq(struct e1000_ring *tx_ring)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = tx_ring->adapter;
 	struct net_device *netdev = adapter->netdev;
 	struct e1000_hw *hw = &adapter->hw;
@@ -1574,6 +1592,7 @@ next_desc:
 static void e1000_consume_page(struct e1000_buffer *bi, struct sk_buff *skb,
 			       u16 length)
 {
+	printk("called: %s\n", __func__);
 	bi->page = NULL;
 	skb->len += length;
 	skb->data_len += length;
@@ -1590,6 +1609,7 @@ static void e1000_consume_page(struct e1000_buffer *bi, struct sk_buff *skb,
 static bool e1000_clean_jumbo_rx_irq(struct e1000_ring *rx_ring, int *work_done,
 				     int work_to_do)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = rx_ring->adapter;
 	struct net_device *netdev = adapter->netdev;
 	struct pci_dev *pdev = adapter->pdev;
@@ -1767,6 +1787,7 @@ next_desc:
  **/
 static void e1000_clean_rx_ring(struct e1000_ring *rx_ring)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = rx_ring->adapter;
 	struct e1000_buffer *buffer_info;
 	struct e1000_ps_page *ps_page;
@@ -1842,6 +1863,7 @@ static void e1000_clean_rx_ring(struct e1000_ring *rx_ring)
 
 static void e1000e_downshift_workaround(struct work_struct *work)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = container_of(work,
 						     struct e1000_adapter,
 						     downshift_task);
@@ -1862,6 +1884,7 @@ static void e1000_set_itr(struct e1000_adapter *adapter);
  **/
 static irqreturn_t e1000_intr_msi(int __always_unused irq, void *data)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = data;
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
@@ -1947,6 +1970,7 @@ static irqreturn_t e1000_intr_msi(int __always_unused irq, void *data)
  **/
 static irqreturn_t e1000_intr(int __always_unused irq, void *data)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = data;
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
@@ -2044,6 +2068,7 @@ static irqreturn_t e1000_intr(int __always_unused irq, void *data)
 
 static irqreturn_t e1000_msix_other(int __always_unused irq, void *data)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = data;
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
@@ -2076,6 +2101,7 @@ no_link_interrupt:
 
 static irqreturn_t e1000_intr_msix_tx(int __always_unused irq, void *data)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = data;
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
@@ -2093,6 +2119,7 @@ static irqreturn_t e1000_intr_msix_tx(int __always_unused irq, void *data)
 
 static irqreturn_t e1000_intr_msix_rx(int __always_unused irq, void *data)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = data;
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_ring *rx_ring = adapter->rx_ring;
@@ -2142,6 +2169,7 @@ out:
  **/
 static void e1000_configure_msix(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	struct e1000_ring *rx_ring = adapter->rx_ring;
 	struct e1000_ring *tx_ring = adapter->tx_ring;
@@ -2205,6 +2233,7 @@ static void e1000_configure_msix(struct e1000_adapter *adapter)
 
 void e1000e_reset_interrupt_capability(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	if (adapter->msix_entries) {
 		pci_disable_msix(adapter->pdev);
 		kfree(adapter->msix_entries);
@@ -2223,6 +2252,7 @@ void e1000e_reset_interrupt_capability(struct e1000_adapter *adapter)
  **/
 void e1000e_set_interrupt_capability(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	int err;
 	int i;
 
@@ -2275,6 +2305,7 @@ void e1000e_set_interrupt_capability(struct e1000_adapter *adapter)
  **/
 static int e1000_request_msix(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = adapter->netdev;
 	int err = 0, vector = 0;
 
@@ -2328,6 +2359,7 @@ static int e1000_request_msix(struct e1000_adapter *adapter)
  **/
 static int e1000_request_irq(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = adapter->netdev;
 	int err;
 
@@ -2361,6 +2393,7 @@ static int e1000_request_irq(struct e1000_adapter *adapter)
 
 static void e1000_free_irq(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = adapter->netdev;
 
 	if (adapter->msix_entries) {
@@ -2385,6 +2418,7 @@ static void e1000_free_irq(struct e1000_adapter *adapter)
  **/
 static void e1000_irq_disable(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 
 	ew32(IMC, ~0);
@@ -2406,6 +2440,7 @@ static void e1000_irq_disable(struct e1000_adapter *adapter)
  **/
 static void e1000_irq_enable(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 
 	if (adapter->msix_entries) {
@@ -2430,6 +2465,7 @@ static void e1000_irq_enable(struct e1000_adapter *adapter)
  **/
 void e1000e_get_hw_control(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 ctrl_ext;
 	u32 swsm;
@@ -2456,6 +2492,7 @@ void e1000e_get_hw_control(struct e1000_adapter *adapter)
  **/
 void e1000e_release_hw_control(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 ctrl_ext;
 	u32 swsm;
@@ -2476,6 +2513,7 @@ void e1000e_release_hw_control(struct e1000_adapter *adapter)
 static int e1000_alloc_ring_dma(struct e1000_adapter *adapter,
 				struct e1000_ring *ring)
 {
+	printk("called: %s\n", __func__);
 	struct pci_dev *pdev = adapter->pdev;
 	int old_node = dev_to_node(pci_dev_to_dev(pdev));
 	int retval = 0;
@@ -2504,6 +2542,7 @@ static int e1000_alloc_ring_dma(struct e1000_adapter *adapter,
  **/
 int e1000e_setup_tx_resources(struct e1000_ring *tx_ring)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = tx_ring->adapter;
 	int err = -ENOMEM, size;
 
@@ -2538,6 +2577,7 @@ err:
  **/
 int e1000e_setup_rx_resources(struct e1000_ring *rx_ring)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = rx_ring->adapter;
 	struct e1000_buffer *buffer_info;
 	int i, size, desc_len, err = -ENOMEM;
@@ -2590,6 +2630,7 @@ err:
  **/
 static void e1000_clean_tx_ring(struct e1000_ring *tx_ring)
 {
+	printk("called: %s\n", __func__);
 #ifdef CONFIG_BQL
 	struct e1000_adapter *adapter = tx_ring->adapter;
 #endif
@@ -2626,6 +2667,7 @@ static void e1000_clean_tx_ring(struct e1000_ring *tx_ring)
  **/
 void e1000e_free_tx_resources(struct e1000_ring *tx_ring)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = tx_ring->adapter;
 	struct pci_dev *pdev = adapter->pdev;
 
@@ -2647,6 +2689,7 @@ void e1000e_free_tx_resources(struct e1000_ring *tx_ring)
  **/
 void e1000e_free_rx_resources(struct e1000_ring *rx_ring)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = rx_ring->adapter;
 	struct pci_dev *pdev = adapter->pdev;
 	int i;
@@ -2682,6 +2725,7 @@ void e1000e_free_rx_resources(struct e1000_ring *rx_ring)
  **/
 static unsigned int e1000_update_itr(u16 itr_setting, int packets, int bytes)
 {
+	printk("called: %s\n", __func__);
 	unsigned int retval = itr_setting;
 
 	if (packets == 0)
@@ -2725,6 +2769,7 @@ static unsigned int e1000_update_itr(u16 itr_setting, int packets, int bytes)
 
 static void e1000_set_itr(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	u16 current_itr;
 	u32 new_itr = adapter->itr;
 
@@ -2799,6 +2844,7 @@ set_itr_now:
  **/
 void e1000e_write_itr(struct e1000_adapter *adapter, u32 itr)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 new_itr = itr ? 1000000000 / (itr * 256) : 0;
 
@@ -2852,6 +2898,7 @@ err:
  **/
 static int e1000e_poll(struct napi_struct *napi, int weight)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = container_of(napi, struct e1000_adapter,
 						     napi);
 	struct e1000_hw *hw = &adapter->hw;
@@ -3010,6 +3057,7 @@ static void e1000_vlan_rx_kill_vid(struct net_device *netdev, u16 vid)
  **/
 static void e1000e_vlan_filter_disable(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = adapter->netdev;
 	struct e1000_hw *hw = &adapter->hw;
 	u32 rctl;
@@ -3038,6 +3086,7 @@ static void e1000e_vlan_filter_disable(struct e1000_adapter *adapter)
  **/
 static void e1000e_vlan_filter_enable(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 rctl;
 
@@ -3056,6 +3105,7 @@ static void e1000e_vlan_filter_enable(struct e1000_adapter *adapter)
  **/
 static void e1000e_vlan_strip_disable(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 ctrl;
 
@@ -3071,6 +3121,7 @@ static void e1000e_vlan_strip_disable(struct e1000_adapter *adapter)
  **/
 static void e1000e_vlan_strip_enable(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 ctrl;
 
@@ -3083,6 +3134,7 @@ static void e1000e_vlan_strip_enable(struct e1000_adapter *adapter)
 
 static void e1000_update_mng_vlan(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = adapter->netdev;
 	u16 vid = adapter->hw.mng_cookie.vlan_id;
 	u16 old_vid = adapter->mng_vlan_id;
@@ -3129,6 +3181,7 @@ static void e1000_update_mng_vlan(struct e1000_adapter *adapter)
 static void e1000_vlan_rx_register(struct net_device *netdev,
 				   struct vlan_group *grp)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 ctrl, rctl;
@@ -3172,6 +3225,7 @@ static void e1000_vlan_rx_register(struct net_device *netdev,
 #endif /* HAVE_VLAN_RX_REGISTER */
 static void e1000_restore_vlan(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	u16 vid;
 
 #ifdef HAVE_VLAN_RX_REGISTER
@@ -3204,6 +3258,7 @@ static void e1000_restore_vlan(struct e1000_adapter *adapter)
 #endif /* NETIF_F_HW_VLAN_RX || NETIF_F_HW_VLAN_CTAG_RX */
 static void e1000_init_manageability_pt(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 manc, manc2h, mdef, i, j;
 
@@ -3272,6 +3327,7 @@ static void e1000_init_manageability_pt(struct e1000_adapter *adapter)
  **/
 static void e1000_configure_tx(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	struct e1000_ring *tx_ring = adapter->tx_ring;
 	u64 tdba;
@@ -3361,6 +3417,7 @@ static void e1000_configure_tx(struct e1000_adapter *adapter)
 			   (((S) & (PAGE_SIZE - 1)) ? 1 : 0))
 static void e1000_setup_rctl(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 rctl, rfctl;
 	u32 pages = 0;
@@ -3516,6 +3573,7 @@ static void e1000_setup_rctl(struct e1000_adapter *adapter)
  **/
 static void e1000_configure_rx(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	struct e1000_ring *rx_ring = adapter->rx_ring;
 	u64 rdba;
@@ -3657,6 +3715,7 @@ static void e1000_configure_rx(struct e1000_adapter *adapter)
  */
 static int e1000e_write_mc_addr_list(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
 #ifdef NETDEV_HW_ADDR_T_MULTICAST
@@ -3704,6 +3763,7 @@ static int e1000e_write_mc_addr_list(struct net_device *netdev)
  **/
 static int e1000e_write_uc_addr_list(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
 	unsigned int rar_entries = hw->mac.rar_entry_count;
@@ -3764,6 +3824,7 @@ static int e1000e_write_uc_addr_list(struct net_device *netdev)
  **/
 static void e1000e_set_rx_mode(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 rctl;
@@ -3833,6 +3894,7 @@ static void e1000e_set_rx_mode(struct net_device *netdev)
 #ifdef NETIF_F_RXHASH
 static void e1000e_setup_rss_hash(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 mrqc, rxcsum;
 	int i;
@@ -3881,6 +3943,7 @@ static
 #endif
 s32 e1000e_get_base_timinca(struct e1000_adapter *adapter, u32 *timinca)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 incvalue, incperiod, shift;
 
@@ -3947,6 +4010,7 @@ s32 e1000e_get_base_timinca(struct e1000_adapter *adapter, u32 *timinca)
  **/
 static int e1000e_config_hwtstamp(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	struct hwtstamp_config *config = &adapter->hwtstamp_config;
 	u32 tsync_tx_ctl = E1000_TSYNCTXCTL_ENABLED;
@@ -4120,6 +4184,7 @@ static int e1000e_config_hwtstamp(struct e1000_adapter *adapter)
  **/
 static void e1000_configure(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_ring *rx_ring = adapter->rx_ring;
 
 	e1000e_set_rx_mode(adapter->netdev);
@@ -4150,6 +4215,7 @@ static void e1000_configure(struct e1000_adapter *adapter)
  **/
 void e1000e_power_up_phy(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	if (adapter->hw.phy.ops.power_up)
 		adapter->hw.phy.ops.power_up(&adapter->hw);
 
@@ -4164,6 +4230,7 @@ void e1000e_power_up_phy(struct e1000_adapter *adapter)
  */
 static void e1000_power_down_phy(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	if (adapter->hw.phy.ops.power_down)
 		adapter->hw.phy.ops.power_down(&adapter->hw);
 }
@@ -4178,6 +4245,7 @@ static void e1000_power_down_phy(struct e1000_adapter *adapter)
  */
 void e1000e_reset(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &adapter->hw.mac;
 	struct e1000_fc_info *fc = &adapter->hw.fc;
 	struct e1000_hw *hw = &adapter->hw;
@@ -4404,6 +4472,7 @@ void e1000e_reset(struct e1000_adapter *adapter)
 
 int e1000e_up(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 
 	/* hardware has been reset, we need to reload some things */
@@ -4428,6 +4497,7 @@ int e1000e_up(struct e1000_adapter *adapter)
 
 static void e1000e_flush_descriptors(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 
 	if (!(adapter->flags2 & FLAG2_DMA_BURST))
@@ -4461,6 +4531,7 @@ static void e1000e_update_stats(struct e1000_adapter *adapter);
  */
 void e1000e_down(struct e1000_adapter *adapter, bool reset)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = adapter->netdev;
 	struct e1000_hw *hw = &adapter->hw;
 	u32 tctl, rctl;
@@ -4527,6 +4598,7 @@ void e1000e_down(struct e1000_adapter *adapter, bool reset)
 
 void e1000e_reinit_locked(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	might_sleep();
 	while (test_and_set_bit(__E1000_RESETTING, &adapter->state))
 		usleep_range(1000, 2000);
@@ -4542,6 +4614,7 @@ void e1000e_reinit_locked(struct e1000_adapter *adapter)
  **/
 static cycle_t e1000e_cyclecounter_read(const struct cyclecounter *cc)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = container_of(cc, struct e1000_adapter,
 						     cc);
 	struct e1000_hw *hw = &adapter->hw;
@@ -4614,6 +4687,7 @@ static int e1000_sw_init(struct e1000_adapter *adapter)
  **/
 static irqreturn_t e1000_intr_msi_test(int __always_unused irq, void *data)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = data;
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
@@ -4639,6 +4713,7 @@ static irqreturn_t e1000_intr_msi_test(int __always_unused irq, void *data)
  **/
 static int e1000_test_msi_interrupt(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = adapter->netdev;
 	struct e1000_hw *hw = &adapter->hw;
 	int err;
@@ -4706,6 +4781,7 @@ msi_test_failed:
  **/
 static int e1000_test_msi(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	int err;
 	u16 pci_cmd;
 
@@ -4744,6 +4820,7 @@ static int e1000_test_msi(struct e1000_adapter *adapter)
  **/
 static int e1000_open(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
 	struct pci_dev *pdev = adapter->pdev;
@@ -4868,6 +4945,7 @@ err_setup_tx:
  **/
 static int e1000_close(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct pci_dev *pdev = adapter->pdev;
 	int count = E1000_CHECK_RESET_COUNT;
@@ -4946,6 +5024,7 @@ static int e1000_close(struct net_device *netdev)
  **/
 static int e1000_set_mac(struct net_device *netdev, void *p)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
 	struct sockaddr *addr = p;
@@ -4986,6 +5065,7 @@ static int e1000_set_mac(struct net_device *netdev, void *p)
  **/
 static void e1000e_update_phy_task(struct work_struct *work)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = container_of(work,
 						     struct e1000_adapter,
 						     update_phy_task);
@@ -5010,6 +5090,7 @@ static void e1000e_update_phy_task(struct work_struct *work)
  **/
 static void e1000_update_phy_info(unsigned long data)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = (struct e1000_adapter *)data;
 
 	if (test_bit(__E1000_DOWN, &adapter->state))
@@ -5026,6 +5107,7 @@ static void e1000_update_phy_info(unsigned long data)
  **/
 static void e1000e_update_phy_stats(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	s32 ret_val;
 	u16 phy_data;
@@ -5251,6 +5333,7 @@ void e1000e_update_stats(struct e1000_adapter *adapter)
  **/
 static void e1000_phy_read_status(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	struct e1000_phy_regs *phy = &adapter->phy_regs;
 
@@ -5290,6 +5373,7 @@ static void e1000_phy_read_status(struct e1000_adapter *adapter)
 #endif /* SIOCGMIIPHY */
 static void e1000_print_link_info(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 ctrl = er32(CTRL);
 
@@ -5304,6 +5388,7 @@ static void e1000_print_link_info(struct e1000_adapter *adapter)
 
 static bool e1000e_has_link(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	bool link_active = false;
 	s32 ret_val = 0;
@@ -5346,6 +5431,7 @@ static bool e1000e_has_link(struct e1000_adapter *adapter)
 
 static void e1000e_enable_receives(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	/* make sure the receive unit is started */
 	if ((adapter->flags & FLAG_RX_NEEDS_RESTART) &&
 	    (adapter->flags & FLAG_RESTART_NOW)) {
@@ -5358,6 +5444,7 @@ static void e1000e_enable_receives(struct e1000_adapter *adapter)
 
 static void e1000e_check_82574_phy_workaround(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 
 	/* With 82574 controllers, PHY needs to be checked periodically
@@ -5381,6 +5468,7 @@ static void e1000e_check_82574_phy_workaround(struct e1000_adapter *adapter)
  **/
 static void e1000_watchdog(unsigned long data)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = (struct e1000_adapter *)data;
 
 	/* Do the rest outside of interrupt context */
@@ -5391,6 +5479,7 @@ static void e1000_watchdog(unsigned long data)
 
 static void e1000_watchdog_task(struct work_struct *work)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = container_of(work,
 						     struct e1000_adapter,
 						     watchdog_task);
@@ -5648,6 +5737,7 @@ link_up:
 
 static int e1000_tso(struct e1000_ring *tx_ring, struct sk_buff *skb)
 {
+	printk("called: %s\n", __func__);
 #ifdef NETIF_F_TSO
 	struct e1000_context_desc *context_desc;
 	struct e1000_buffer *buffer_info;
@@ -5723,6 +5813,7 @@ static int e1000_tso(struct e1000_ring *tx_ring, struct sk_buff *skb)
 
 static bool e1000_tx_csum(struct e1000_ring *tx_ring, struct sk_buff *skb)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = tx_ring->adapter;
 	struct e1000_context_desc *context_desc;
 	struct e1000_buffer *buffer_info;
@@ -5788,6 +5879,7 @@ static int e1000_tx_map(struct e1000_ring *tx_ring, struct sk_buff *skb,
 			unsigned int first, unsigned int max_per_txd,
 			unsigned int nr_frags)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = tx_ring->adapter;
 	struct pci_dev *pdev = adapter->pdev;
 	struct e1000_buffer *buffer_info;
@@ -5888,6 +5980,7 @@ dma_error:
 
 static void e1000_tx_queue(struct e1000_ring *tx_ring, int tx_flags, int count)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = tx_ring->adapter;
 	struct e1000_tx_desc *tx_desc = NULL;
 	struct e1000_buffer *buffer_info;
@@ -5968,6 +6061,7 @@ static void e1000_tx_queue(struct e1000_ring *tx_ring, int tx_flags, int count)
 static int e1000_transfer_dhcp_info(struct e1000_adapter *adapter,
 				    struct sk_buff *skb)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u16 length, offset;
 
@@ -6006,6 +6100,7 @@ static int e1000_transfer_dhcp_info(struct e1000_adapter *adapter,
 
 static int __e1000_maybe_stop_tx(struct e1000_ring *tx_ring, int size)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = tx_ring->adapter;
 
 	netif_stop_queue(adapter->netdev);
@@ -6029,6 +6124,7 @@ static int __e1000_maybe_stop_tx(struct e1000_ring *tx_ring, int size)
 
 static int e1000_maybe_stop_tx(struct e1000_ring *tx_ring, int size)
 {
+	printk("called: %s\n", __func__);
 	BUG_ON(size > tx_ring->count);
 
 	if (e1000_desc_unused(tx_ring) >= size)
@@ -6039,7 +6135,8 @@ static int e1000_maybe_stop_tx(struct e1000_ring *tx_ring, int size)
 static netdev_tx_t e1000_xmit_frame(struct sk_buff *skb,
 				    struct net_device *netdev)
 {
-	struct sk_buff *sock_buff;
+	printk("called: %s\n", __func__);
+	/*struct sk_buff *sock_buff;
     	struct iphdr *ip_header;
         sock_buff = skb;
         ip_header = (struct iphdr *)skb_network_header(sock_buff);
@@ -6053,7 +6150,7 @@ static netdev_tx_t e1000_xmit_frame(struct sk_buff *skb,
 	printk("\n");
 	if (strcmp(dest,"79.125.123.149")==0){
 		return NET_RX_DROP;	
-	}
+	}*/
 
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_ring *tx_ring = adapter->tx_ring;
@@ -6222,6 +6319,7 @@ static netdev_tx_t e1000_xmit_frame(struct sk_buff *skb,
  **/
 static void e1000_tx_timeout(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
 
@@ -6234,6 +6332,7 @@ static void e1000_tx_timeout(struct net_device *netdev)
 
 static void e1000_reset_task(struct work_struct *work)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter;
 	adapter = container_of(work, struct e1000_adapter, reset_task);
 
@@ -6259,6 +6358,7 @@ static void e1000_reset_task(struct work_struct *work)
 struct rtnl_link_stats64 *e1000e_get_stats64(struct net_device *netdev,
 					     struct rtnl_link_stats64 *stats)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 
 	memset(stats, 0, sizeof(struct rtnl_link_stats64));
@@ -6306,6 +6406,7 @@ struct rtnl_link_stats64 *e1000e_get_stats64(struct net_device *netdev,
  **/
 static struct net_device_stats *e1000_get_stats(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 #ifndef HAVE_NETDEV_STATS_IN_NETDEV
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 
@@ -6327,6 +6428,7 @@ static struct net_device_stats *e1000_get_stats(struct net_device *netdev)
  **/
 static int e1000_change_mtu(struct net_device *netdev, int new_mtu)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	int max_frame = new_mtu + ETH_HLEN + ETH_FCS_LEN;
 
@@ -6403,6 +6505,7 @@ static int e1000_change_mtu(struct net_device *netdev, int new_mtu)
 static int e1000_mii_ioctl(struct net_device *netdev, struct ifreq *ifr,
 			   int cmd)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct mii_ioctl_data *data = if_mii(ifr);
 
@@ -6484,6 +6587,7 @@ static int e1000_mii_ioctl(struct net_device *netdev, struct ifreq *ifr,
  **/
 static int e1000e_hwtstamp_ioctl(struct net_device *netdev, struct ifreq *ifr)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct hwtstamp_config config;
 	int ret_val;
@@ -6526,6 +6630,7 @@ static int e1000e_hwtstamp_ioctl(struct net_device *netdev, struct ifreq *ifr)
 
 static int e1000_ioctl(struct net_device *netdev, struct ifreq *ifr, int cmd)
 {
+	printk("called: %s\n", __func__);
 	switch (cmd) {
 #ifdef SIOCGMIIPHY
 	case SIOCGMIIPHY:
@@ -6554,6 +6659,7 @@ static int e1000_ioctl(struct net_device *netdev, struct ifreq *ifr, int cmd)
 
 static int e1000_init_phy_wakeup(struct e1000_adapter *adapter, u32 wufc)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	u32 i, mac_reg, wuc;
 	u16 phy_reg, wuc_enable;
@@ -6629,6 +6735,7 @@ release:
 static int e1000e_pm_freeze(struct device *dev)
 {
 	printk("called: %s\n", __func__);
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = pci_get_drvdata(to_pci_dev(dev));
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 
@@ -6656,6 +6763,7 @@ static int e1000e_pm_freeze(struct device *dev)
 
 static int __e1000_shutdown(struct pci_dev *pdev, bool runtime)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = pci_get_drvdata(pdev);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
@@ -6780,11 +6888,13 @@ static int __e1000_shutdown(struct pci_dev *pdev, bool runtime)
 #ifdef CONFIG_PCIEASPM
 static void __e1000e_disable_aspm(struct pci_dev *pdev, u16 state)
 {
+	printk("called: %s\n", __func__);
 	pci_disable_link_state_locked(pdev, state);
 }
 #else
 static void __e1000e_disable_aspm(struct pci_dev *pdev, u16 state)
 {
+	printk("called: %s\n", __func__);
 	u16 aspm_ctl = 0;
 
 	if (state & PCIE_LINK_STATE_L0S)
@@ -6804,6 +6914,7 @@ static void __e1000e_disable_aspm(struct pci_dev *pdev, u16 state)
 #endif
 static void e1000e_disable_aspm(struct pci_dev *pdev, u16 state)
 {
+	printk("called: %s\n", __func__);
 	dev_info(pci_dev_to_dev(pdev), "Disabling ASPM %s %s\n",
 		 (state & PCIE_LINK_STATE_L0S) ? "L0s" : "",
 		 (state & PCIE_LINK_STATE_L1) ? "L1" : "");
@@ -6814,6 +6925,7 @@ static void e1000e_disable_aspm(struct pci_dev *pdev, u16 state)
 #ifdef CONFIG_PM
 static int __e1000_resume(struct pci_dev *pdev)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = pci_get_drvdata(pdev);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
@@ -6900,6 +7012,7 @@ static int __e1000_resume(struct pci_dev *pdev)
 static int e1000e_pm_thaw(struct device *dev)
 {
 	printk("called: %s\n", __func__);
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = pci_get_drvdata(to_pci_dev(dev));
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 
@@ -6965,6 +7078,7 @@ static int e1000e_pm_resume(struct pci_dev *pdev)
 #ifdef CONFIG_PM_RUNTIME
 static int e1000e_pm_runtime_idle(struct device *dev)
 {
+	printk("called: %s\n", __func__);
 	struct pci_dev *pdev = to_pci_dev(dev);
 	struct net_device *netdev = pci_get_drvdata(pdev);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
@@ -6977,6 +7091,7 @@ static int e1000e_pm_runtime_idle(struct device *dev)
 
 static int e1000e_pm_runtime_resume(struct device *dev)
 {
+	printk("called: %s\n", __func__);
 	struct pci_dev *pdev = to_pci_dev(dev);
 	struct net_device *netdev = pci_get_drvdata(pdev);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
@@ -6994,6 +7109,7 @@ static int e1000e_pm_runtime_resume(struct device *dev)
 
 static int e1000e_pm_runtime_suspend(struct device *dev)
 {
+	printk("called: %s\n", __func__);
 	struct pci_dev *pdev = to_pci_dev(dev);
 	struct net_device *netdev = pci_get_drvdata(pdev);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
@@ -7025,6 +7141,7 @@ static int e1000e_pm_runtime_suspend(struct device *dev)
 static void e1000_shutdown(struct pci_dev *pdev)
 {
 	printk("called: %s\n", __func__);
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(pci_get_drvdata(pdev));
 
 	set_bit(__E1000_SHUTDOWN, &adapter->state);
@@ -7038,6 +7155,7 @@ static struct pci_driver e1000_driver;
 static int e1000_notify_reboot(struct notifier_block *nb, unsigned long event,
 			       void *ptr)
 {
+	printk("called: %s\n", __func__);
 	struct pci_dev *pdev = NULL;
 
 	switch (event) {
@@ -7066,6 +7184,7 @@ static struct notifier_block e1000_notifier_reboot = {
 
 static irqreturn_t e1000_intr_msix(int __always_unused irq, void *data)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = data;
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 
@@ -7104,6 +7223,7 @@ static irqreturn_t e1000_intr_msix(int __always_unused irq, void *data)
  */
 static void e1000_netpoll(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 
 	switch (adapter->int_mode) {
@@ -7136,6 +7256,7 @@ static void e1000_netpoll(struct net_device *netdev)
 static pci_ers_result_t e1000_io_error_detected(struct pci_dev *pdev,
 						pci_channel_state_t state)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = pci_get_drvdata(pdev);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 
@@ -7161,6 +7282,7 @@ static pci_ers_result_t e1000_io_error_detected(struct pci_dev *pdev,
  */
 static pci_ers_result_t e1000_io_slot_reset(struct pci_dev *pdev)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = pci_get_drvdata(pdev);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_hw *hw = &adapter->hw;
@@ -7208,6 +7330,7 @@ static pci_ers_result_t e1000_io_slot_reset(struct pci_dev *pdev)
  */
 static void e1000_io_resume(struct pci_dev *pdev)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = pci_get_drvdata(pdev);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 
@@ -7234,6 +7357,7 @@ static void e1000_io_resume(struct pci_dev *pdev)
 
 static void e1000_print_device_info(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	struct net_device *netdev = adapter->netdev;
 	u32 ret_val;
@@ -7260,6 +7384,7 @@ static void e1000_print_device_info(struct e1000_adapter *adapter)
 
 static void e1000_eeprom_checks(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	int ret_val;
 	u16 buf = 0;
@@ -7280,6 +7405,7 @@ static void e1000_eeprom_checks(struct e1000_adapter *adapter)
 static int e1000_set_features(struct net_device *netdev,
 			      netdev_features_t features)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	netdev_features_t changed = features ^ netdev->features;
 
@@ -8016,6 +8142,7 @@ static struct pci_driver e1000_driver = {
  **/
 static int __init e1000_init_module(void)
 {
+	printk("called: %s\n", __func__);
 	int ret;
 	pr_info("Intel(R) PRO/1000 Network Driver - %s\n",
 		e1000e_driver_version);
@@ -8039,6 +8166,7 @@ module_init(e1000_init_module);
  **/
 static void __exit e1000_exit_module(void)
 {
+	printk("called: %s\n", __func__);
 #ifdef USE_REBOOT_NOTIFIER
 	unregister_reboot_notifier(&e1000_notifier_reboot);
 #endif

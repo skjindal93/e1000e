@@ -37,6 +37,7 @@
  **/
 static void e1000_raise_eec_clk(struct e1000_hw *hw, u32 *eecd)
 {
+	printk("called: %s\n", __func__);
 	*eecd = *eecd | E1000_EECD_SK;
 	ew32(EECD, *eecd);
 	e1e_flush();
@@ -52,6 +53,7 @@ static void e1000_raise_eec_clk(struct e1000_hw *hw, u32 *eecd)
  **/
 static void e1000_lower_eec_clk(struct e1000_hw *hw, u32 *eecd)
 {
+	printk("called: %s\n", __func__);
 	*eecd = *eecd & ~E1000_EECD_SK;
 	ew32(EECD, *eecd);
 	e1e_flush();
@@ -70,6 +72,7 @@ static void e1000_lower_eec_clk(struct e1000_hw *hw, u32 *eecd)
  **/
 static void e1000_shift_out_eec_bits(struct e1000_hw *hw, u16 data, u16 count)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	u32 eecd = er32(EECD);
 	u32 mask;
@@ -112,6 +115,7 @@ static void e1000_shift_out_eec_bits(struct e1000_hw *hw, u16 data, u16 count)
  **/
 static u16 e1000_shift_in_eec_bits(struct e1000_hw *hw, u16 count)
 {
+	printk("called: %s\n", __func__);
 	u32 eecd;
 	u32 i;
 	u16 data;
@@ -146,6 +150,7 @@ static u16 e1000_shift_in_eec_bits(struct e1000_hw *hw, u16 count)
  **/
 s32 e1000e_poll_eerd_eewr_done(struct e1000_hw *hw, int ee_reg)
 {
+	printk("called: %s\n", __func__);
 	u32 attempts = 100000;
 	u32 i, reg = 0;
 
@@ -174,6 +179,7 @@ s32 e1000e_poll_eerd_eewr_done(struct e1000_hw *hw, int ee_reg)
  **/
 s32 e1000e_acquire_nvm(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 eecd = er32(EECD);
 	s32 timeout = E1000_NVM_GRANT_ATTEMPTS;
 
@@ -205,6 +211,7 @@ s32 e1000e_acquire_nvm(struct e1000_hw *hw)
  **/
 static void e1000_standby_nvm(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	u32 eecd = er32(EECD);
 
@@ -229,6 +236,7 @@ static void e1000_standby_nvm(struct e1000_hw *hw)
  **/
 static void e1000_stop_nvm(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 eecd;
 
 	eecd = er32(EECD);
@@ -247,6 +255,7 @@ static void e1000_stop_nvm(struct e1000_hw *hw)
  **/
 void e1000e_release_nvm(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 eecd;
 
 	e1000_stop_nvm(hw);
@@ -264,6 +273,7 @@ void e1000e_release_nvm(struct e1000_hw *hw)
  **/
 static s32 e1000_ready_nvm_eeprom(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	u32 eecd = er32(EECD);
 	u8 spi_stat_reg;
@@ -314,6 +324,7 @@ static s32 e1000_ready_nvm_eeprom(struct e1000_hw *hw)
  **/
 s32 e1000e_read_nvm_eerd(struct e1000_hw *hw, u16 offset, u16 words, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	u32 i, eerd = 0;
 	s32 ret_val = 0;
@@ -356,6 +367,7 @@ s32 e1000e_read_nvm_eerd(struct e1000_hw *hw, u16 offset, u16 words, u16 *data)
  **/
 s32 e1000e_write_nvm_spi(struct e1000_hw *hw, u16 offset, u16 words, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	s32 ret_val = -E1000_ERR_NVM;
 	u16 widx = 0;
@@ -432,6 +444,7 @@ s32 e1000e_write_nvm_spi(struct e1000_hw *hw, u16 offset, u16 words, u16 *data)
 s32 e1000_read_pba_string_generic(struct e1000_hw *hw, u8 *pba_num,
 				  u32 pba_num_size)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 nvm_data;
 	u16 pba_ptr;
@@ -538,6 +551,7 @@ s32 e1000_read_pba_string_generic(struct e1000_hw *hw, u8 *pba_num,
  **/
 s32 e1000_read_mac_addr_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 rar_high;
 	u32 rar_low;
 	u16 i;
@@ -566,6 +580,7 @@ s32 e1000_read_mac_addr_generic(struct e1000_hw *hw)
  **/
 s32 e1000e_validate_nvm_checksum_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 checksum = 0;
 	u16 i, nvm_data;
@@ -597,6 +612,7 @@ s32 e1000e_validate_nvm_checksum_generic(struct e1000_hw *hw)
  **/
 s32 e1000e_update_nvm_checksum_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 checksum = 0;
 	u16 i, nvm_data;
@@ -626,6 +642,7 @@ s32 e1000e_update_nvm_checksum_generic(struct e1000_hw *hw)
  **/
 void e1000e_reload_nvm_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl_ext;
 
 	usleep_range(10, 20);

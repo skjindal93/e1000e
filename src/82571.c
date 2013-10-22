@@ -69,6 +69,7 @@ static s32 e1000_set_d3_lplu_state_82574(struct e1000_hw *hw, bool active);
  **/
 static s32 e1000_init_phy_params_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 
@@ -145,6 +146,7 @@ static s32 e1000_init_phy_params_82571(struct e1000_hw *hw)
  **/
 static s32 e1000_init_nvm_params_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	u32 eecd = er32(EECD);
 	u16 size;
@@ -217,6 +219,7 @@ static s32 e1000_init_nvm_params_82571(struct e1000_hw *hw)
  **/
 static s32 e1000_init_mac_params_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	u32 swsm = 0;
 	u32 swsm2 = 0;
@@ -338,6 +341,7 @@ static s32 e1000_init_mac_params_82571(struct e1000_hw *hw)
 
 static s32 e1000_get_variants_82571(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	static int global_quad_port_a;	/* global port a indication */
 	struct pci_dev *pdev = adapter->pdev;
@@ -413,6 +417,7 @@ static s32 e1000_get_variants_82571(struct e1000_adapter *adapter)
  **/
 static s32 e1000_get_phy_id_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_id = 0;
@@ -461,6 +466,7 @@ static s32 e1000_get_phy_id_82571(struct e1000_hw *hw)
  **/
 static s32 e1000_get_hw_semaphore_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 swsm;
 	s32 sw_timeout = hw->nvm.word_size + 1;
 	s32 fw_timeout = hw->nvm.word_size + 1;
@@ -520,6 +526,7 @@ static s32 e1000_get_hw_semaphore_82571(struct e1000_hw *hw)
  **/
 static void e1000_put_hw_semaphore_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 swsm;
 
 	swsm = er32(SWSM);
@@ -536,6 +543,7 @@ static void e1000_put_hw_semaphore_82571(struct e1000_hw *hw)
  **/
 static s32 e1000_get_hw_semaphore_82573(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 extcnf_ctrl;
 	s32 i = 0;
 
@@ -571,6 +579,7 @@ static s32 e1000_get_hw_semaphore_82573(struct e1000_hw *hw)
  **/
 static void e1000_put_hw_semaphore_82573(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 extcnf_ctrl;
 
 	extcnf_ctrl = er32(EXTCNF_CTRL);
@@ -589,6 +598,7 @@ static DEFINE_MUTEX(swflag_mutex);
  **/
 static s32 e1000_get_hw_semaphore_82574(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	mutex_lock(&swflag_mutex);
@@ -607,6 +617,7 @@ static s32 e1000_get_hw_semaphore_82574(struct e1000_hw *hw)
  **/
 static void e1000_put_hw_semaphore_82574(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	e1000_put_hw_semaphore_82573(hw);
 	mutex_unlock(&swflag_mutex);
 }
@@ -625,6 +636,7 @@ static void e1000_put_hw_semaphore_82574(struct e1000_hw *hw)
  **/
 static s32 e1000_set_d0_lplu_state_82574(struct e1000_hw *hw, bool active)
 {
+	printk("called: %s\n", __func__);
 	u32 data = er32(POEMB);
 
 	if (active)
@@ -649,6 +661,7 @@ static s32 e1000_set_d0_lplu_state_82574(struct e1000_hw *hw, bool active)
  **/
 static s32 e1000_set_d3_lplu_state_82574(struct e1000_hw *hw, bool active)
 {
+	printk("called: %s\n", __func__);
 	u32 data = er32(POEMB);
 
 	if (!active) {
@@ -674,6 +687,7 @@ static s32 e1000_set_d3_lplu_state_82574(struct e1000_hw *hw, bool active)
  **/
 static s32 e1000_acquire_nvm_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	ret_val = e1000_get_hw_semaphore_82571(hw);
@@ -702,6 +716,7 @@ static s32 e1000_acquire_nvm_82571(struct e1000_hw *hw)
  **/
 static void e1000_release_nvm_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	e1000e_release_nvm(hw);
 	e1000_put_hw_semaphore_82571(hw);
 }
@@ -721,6 +736,7 @@ static void e1000_release_nvm_82571(struct e1000_hw *hw)
 static s32 e1000_write_nvm_82571(struct e1000_hw *hw, u16 offset, u16 words,
 				 u16 *data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	switch (hw->mac.type) {
@@ -751,6 +767,7 @@ static s32 e1000_write_nvm_82571(struct e1000_hw *hw, u16 offset, u16 words,
  **/
 static s32 e1000_update_nvm_checksum_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 eecd;
 	s32 ret_val;
 	u16 i;
@@ -810,6 +827,7 @@ static s32 e1000_update_nvm_checksum_82571(struct e1000_hw *hw)
  **/
 static s32 e1000_validate_nvm_checksum_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	if (hw->nvm.type == e1000_nvm_flash_hw)
 		e1000_fix_nvm_checksum_82571(hw);
 
@@ -833,6 +851,7 @@ static s32 e1000_validate_nvm_checksum_82571(struct e1000_hw *hw)
 static s32 e1000_write_nvm_eewr_82571(struct e1000_hw *hw, u16 offset,
 				      u16 words, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	u32 i, eewr = 0;
 	s32 ret_val = 0;
@@ -873,6 +892,7 @@ static s32 e1000_write_nvm_eewr_82571(struct e1000_hw *hw, u16 offset,
  **/
 static s32 e1000_get_cfg_done_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 timeout = PHY_CFG_TIMEOUT;
 
 	while (timeout) {
@@ -902,6 +922,7 @@ static s32 e1000_get_cfg_done_82571(struct e1000_hw *hw)
  **/
 static s32 e1000_set_d0_lplu_state_82571(struct e1000_hw *hw, bool active)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 data;
@@ -968,6 +989,7 @@ static s32 e1000_set_d0_lplu_state_82571(struct e1000_hw *hw, bool active)
  **/
 static s32 e1000_reset_hw_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl, ctrl_ext, eecd, tctl;
 	s32 ret_val;
 
@@ -1086,6 +1108,7 @@ static s32 e1000_reset_hw_82571(struct e1000_hw *hw)
  **/
 static s32 e1000_init_hw_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	u32 reg_data;
 	s32 ret_val;
@@ -1164,6 +1187,7 @@ static s32 e1000_init_hw_82571(struct e1000_hw *hw)
  **/
 static void e1000_initialize_hw_bits_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 reg;
 
 	/* Transmit Descriptor Control 0 */
@@ -1293,6 +1317,7 @@ static void e1000_initialize_hw_bits_82571(struct e1000_hw *hw)
  **/
 static void e1000_clear_vfta_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 offset;
 	u32 vfta_value = 0;
 	u32 vfta_offset = 0;
@@ -1340,6 +1365,7 @@ static void e1000_clear_vfta_82571(struct e1000_hw *hw)
  **/
 static bool e1000_check_mng_mode_82574(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 data;
 
 	e1000_read_nvm(hw, NVM_INIT_CONTROL2_REG, 1, &data);
@@ -1354,6 +1380,7 @@ static bool e1000_check_mng_mode_82574(struct e1000_hw *hw)
  **/
 static s32 e1000_led_on_82574(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl;
 	u32 i;
 
@@ -1380,6 +1407,7 @@ static s32 e1000_led_on_82574(struct e1000_hw *hw)
  **/
 bool e1000_check_phy_82574(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 status_1kbt = 0;
 	u16 receive_errors = 0;
 	s32 ret_val;
@@ -1414,6 +1442,7 @@ bool e1000_check_phy_82574(struct e1000_hw *hw)
  **/
 static s32 e1000_setup_link_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	/* 82573 does not have a word in the NVM to determine
 	 * the default flow control setting, so we explicitly
 	 * set it to full.
@@ -1442,6 +1471,7 @@ static s32 e1000_setup_link_82571(struct e1000_hw *hw)
  **/
 static s32 e1000_setup_copper_link_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl;
 	s32 ret_val;
 
@@ -1478,6 +1508,7 @@ static s32 e1000_setup_copper_link_82571(struct e1000_hw *hw)
  **/
 static s32 e1000_setup_fiber_serdes_link_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	switch (hw->mac.type) {
 	case e1000_82571:
 	case e1000_82572:
@@ -1517,6 +1548,7 @@ static s32 e1000_setup_fiber_serdes_link_82571(struct e1000_hw *hw)
  **/
 static s32 e1000_check_for_serdes_link_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	u32 rxcw;
 	u32 ctrl;
@@ -1672,6 +1704,7 @@ static s32 e1000_check_for_serdes_link_82571(struct e1000_hw *hw)
  **/
 static s32 e1000_valid_led_default_82571(struct e1000_hw *hw, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	ret_val = e1000_read_nvm(hw, NVM_ID_LED_SETTINGS, 1, data);
@@ -1705,6 +1738,7 @@ static s32 e1000_valid_led_default_82571(struct e1000_hw *hw, u16 *data)
  **/
 bool e1000e_get_laa_state_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	if (hw->mac.type != e1000_82571)
 		return false;
 
@@ -1720,6 +1754,7 @@ bool e1000e_get_laa_state_82571(struct e1000_hw *hw)
  **/
 void e1000e_set_laa_state_82571(struct e1000_hw *hw, bool state)
 {
+	printk("called: %s\n", __func__);
 	if (hw->mac.type != e1000_82571)
 		return;
 
@@ -1749,6 +1784,7 @@ void e1000e_set_laa_state_82571(struct e1000_hw *hw, bool state)
  **/
 static s32 e1000_fix_nvm_checksum_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	s32 ret_val;
 	u16 data;
@@ -1795,6 +1831,7 @@ static s32 e1000_fix_nvm_checksum_82571(struct e1000_hw *hw)
  **/
 static s32 e1000_read_mac_addr_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	if (hw->mac.type == e1000_82571) {
 		s32 ret_val;
 
@@ -1819,6 +1856,7 @@ static s32 e1000_read_mac_addr_82571(struct e1000_hw *hw)
  **/
 static void e1000_power_down_phy_copper_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	struct e1000_mac_info *mac = &hw->mac;
 
@@ -1838,6 +1876,7 @@ static void e1000_power_down_phy_copper_82571(struct e1000_hw *hw)
  **/
 static void e1000_clear_hw_cntrs_82571(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	e1000e_clear_hw_cntrs_base(hw);
 
 	er32(PRC64);

@@ -36,6 +36,7 @@
 
 static int skip_atoi(const char **s)
 {
+	printk("called: %s\n", __func__);
 	int i = 0;
 
 	while (isdigit(**s))
@@ -54,6 +55,7 @@ static int skip_atoi(const char **s)
 static char *number(char *buf, char *end, long long num, int base, int size,
 		    int precision, int type)
 {
+	printk("called: %s\n", __func__);
 	char c, sign, tmp[66];
 	const char *digits;
 	const char small_digits[] = "0123456789abcdefghijklmnopqrstuvwxyz";
@@ -148,6 +150,7 @@ static char *number(char *buf, char *end, long long num, int base, int size,
 
 int _kc_vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
 {
+	printk("called: %s\n", __func__);
 	int len;
 	unsigned long long num;
 	int i, base;
@@ -381,6 +384,7 @@ repeat:
 
 int _kc_snprintf(char *buf, size_t size, const char *fmt, ...)
 {
+	printk("called: %s\n", __func__);
 	va_list args;
 	int i;
 
@@ -407,6 +411,7 @@ u64
 _kc_pci_map_page(struct pci_dev *dev, struct page *page, unsigned long offset,
 		 size_t size, int direction)
 {
+	printk("called: %s\n", __func__);
 	return (((u64)(page - mem_map) << PAGE_SHIFT) + offset +
 		PCI_DRAM_OFFSET);
 }
@@ -417,6 +422,7 @@ u64
 _kc_pci_map_page(struct pci_dev *dev, struct page *page, unsigned long offset,
 		 size_t size, int direction)
 {
+	printk("called: %s\n", __func__);
 	return pci_map_single(dev, (void *)page_address(page) + offset, size,
 			      direction);
 }
@@ -427,6 +433,7 @@ void
 _kc_pci_unmap_page(struct pci_dev *dev, u64 dma_addr, size_t size,
 		   int direction)
 {
+	printk("called: %s\n", __func__);
 	return pci_unmap_single(dev, dma_addr, size, direction);
 }
 
@@ -440,6 +447,7 @@ _kc_pci_unmap_page(struct pci_dev *dev, u64 dma_addr, size_t size,
 
 int _kc_pci_set_dma_mask(struct pci_dev *dev, dma_addr_t mask)
 {
+	printk("called: %s\n", __func__);
 	if (!pci_dma_supported(dev, mask))
 		return -EIO;
 	dev->dma_mask = mask;
@@ -448,6 +456,7 @@ int _kc_pci_set_dma_mask(struct pci_dev *dev, dma_addr_t mask)
 
 int _kc_pci_request_regions(struct pci_dev *dev, char *res_name)
 {
+	printk("called: %s\n", __func__);
 	int i;
 
 	for (i = 0; i < 6; i++) {
@@ -475,6 +484,7 @@ int _kc_pci_request_regions(struct pci_dev *dev, char *res_name)
 
 void _kc_pci_release_regions(struct pci_dev *dev)
 {
+	printk("called: %s\n", __func__);
 	int i;
 
 	for (i = 0; i < 6; i++) {
@@ -496,6 +506,7 @@ void _kc_pci_release_regions(struct pci_dev *dev)
 
 struct net_device *_kc_alloc_etherdev(int sizeof_priv)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *dev;
 	int alloc_size;
 
@@ -514,6 +525,7 @@ struct net_device *_kc_alloc_etherdev(int sizeof_priv)
 
 int _kc_is_valid_ether_addr(u8 *addr)
 {
+	printk("called: %s\n", __func__);
 	const char zaddr[6] = { 0, };
 
 	return !(addr[0] & 1) && memcmp(addr, zaddr, 6);
@@ -526,11 +538,13 @@ int _kc_is_valid_ether_addr(u8 *addr)
 
 int _kc_pci_set_power_state(struct pci_dev *dev, int state)
 {
+	printk("called: %s\n", __func__);
 	return 0;
 }
 
 int _kc_pci_enable_wake(struct pci_dev *pdev, u32 state, int enable)
 {
+	printk("called: %s\n", __func__);
 	return 0;
 }
 
@@ -541,6 +555,7 @@ int _kc_pci_enable_wake(struct pci_dev *pdev, u32 state, int enable)
 void _kc_skb_fill_page_desc(struct sk_buff *skb, int i, struct page *page,
 			    int off, int size)
 {
+	printk("called: %s\n", __func__);
 	skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
 	frag->page = page;
 	frag->page_offset = off;
@@ -565,6 +580,7 @@ void _kc_skb_fill_page_desc(struct sk_buff *skb, int i, struct page *page,
 unsigned long find_next_bit(const unsigned long *addr, unsigned long size,
 			    unsigned long offset)
 {
+	printk("called: %s\n", __func__);
 	const unsigned long *p = addr + BITOP_WORD(offset);
 	unsigned long result = offset & ~(BITS_PER_LONG - 1);
 	unsigned long tmp;
@@ -603,6 +619,7 @@ found_middle:
 
 size_t _kc_strlcpy(char *dest, const char *src, size_t size)
 {
+	printk("called: %s\n", __func__);
 	size_t ret = strlen(src);
 
 	if (size) {
@@ -617,6 +634,7 @@ size_t _kc_strlcpy(char *dest, const char *src, size_t size)
 #if BITS_PER_LONG == 32
 uint32_t __attribute__ ((weak)) _kc__div64_32(uint64_t * n, uint32_t base)
 {
+	printk("called: %s\n", __func__);
 	uint64_t rem = *n;
 	uint64_t b = base;
 	uint64_t res, d = 1;
@@ -655,6 +673,7 @@ uint32_t __attribute__ ((weak)) _kc__div64_32(uint64_t * n, uint32_t base)
 #if ( LINUX_VERSION_CODE < KERNEL_VERSION(2,6,4) )
 int _kc_scnprintf(char *buf, size_t size, const char *fmt, ...)
 {
+	printk("called: %s\n", __func__);
 	va_list args;
 	int i;
 
@@ -675,6 +694,7 @@ DECLARE_BITMAP(_kcompat_node_online_map, MAX_NUMNODES) = {
 #if ( LINUX_VERSION_CODE < KERNEL_VERSION(2,6,13) )
 char *_kc_kstrdup(const char *s, unsigned int gfp)
 {
+	printk("called: %s\n", __func__);
 	size_t len;
 	char *buf;
 
@@ -693,6 +713,7 @@ char *_kc_kstrdup(const char *s, unsigned int gfp)
 #if ( LINUX_VERSION_CODE < KERNEL_VERSION(2,6,14) )
 void *_kc_kzalloc(size_t size, int flags)
 {
+	printk("called: %s\n", __func__);
 	void *ret = kmalloc(size, flags);
 	if (ret)
 		memset(ret, 0, size);
@@ -704,6 +725,7 @@ void *_kc_kzalloc(size_t size, int flags)
 #if ( LINUX_VERSION_CODE < KERNEL_VERSION(2,6,19) )
 int _kc_skb_pad(struct sk_buff *skb, int pad)
 {
+	printk("called: %s\n", __func__);
 	int ntail;
 
 	/* If the skbuff is non linear tailroom is always zero.. */
@@ -733,6 +755,7 @@ free_skb:
 #if (!(RHEL_RELEASE_CODE && RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(5,4)))
 int _kc_pci_save_state(struct pci_dev *pdev)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = pci_get_drvdata(pdev);
 	struct adapter_struct *adapter = netdev_priv(netdev);
 	int size = PCI_CONFIG_SPACE_LEN, i;
@@ -767,6 +790,7 @@ int _kc_pci_save_state(struct pci_dev *pdev)
 
 void _kc_pci_restore_state(struct pci_dev *pdev)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *netdev = pci_get_drvdata(pdev);
 	struct adapter_struct *adapter = netdev_priv(netdev);
 	int size = PCI_CONFIG_SPACE_LEN, i;
@@ -796,6 +820,7 @@ void _kc_pci_restore_state(struct pci_dev *pdev)
 #ifdef HAVE_PCI_ERS
 void _kc_free_netdev(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 	struct adapter_struct *adapter = netdev_priv(netdev);
 
 	if (adapter->config_space != NULL)
@@ -816,6 +841,7 @@ void _kc_free_netdev(struct net_device *netdev)
 
 void *_kc_kmemdup(const void *src, size_t len, unsigned gfp)
 {
+	printk("called: %s\n", __func__);
 	void *p;
 
 	p = kzalloc(len, gfp);
@@ -829,6 +855,7 @@ void *_kc_kmemdup(const void *src, size_t len, unsigned gfp)
 #if ( LINUX_VERSION_CODE < KERNEL_VERSION(2,6,21) )
 struct pci_dev *_kc_netdev_to_pdev(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 	return ((struct adapter_struct *)netdev_priv(netdev))->pdev;
 }
 #endif /* < 2.6.21 */
@@ -840,6 +867,7 @@ static void _kc_hex_dump_to_buffer(const void *buf, size_t len, int rowsize,
 				   int groupsize, unsigned char *linebuf,
 				   size_t linebuflen, bool ascii)
 {
+	printk("called: %s\n", __func__);
 	const u8 *ptr = buf;
 	u8 ch;
 	int j, lx = 0;
@@ -926,6 +954,7 @@ void _kc_print_hex_dump(const char *level,
 			int rowsize, int groupsize,
 			const void *buf, size_t len, bool ascii)
 {
+	printk("called: %s\n", __func__);
 	const u8 *ptr = buf;
 	int i, linelen, remaining = len;
 	unsigned char linebuf[200];
@@ -962,6 +991,7 @@ void _kc_print_hex_dump(const char *level,
 
 int __kc_adapter_clean(struct net_device *netdev, int *budget)
 {
+	printk("called: %s\n", __func__);
 	int work_done;
 	int work_to_do = min(*budget, netdev->quota);
 	struct adapter_struct *adapter = netdev_priv(netdev);
@@ -978,6 +1008,7 @@ int __kc_adapter_clean(struct net_device *netdev, int *budget)
 #if ( LINUX_VERSION_CODE < KERNEL_VERSION(2,6,26) )
 void _kc_pci_disable_link_state(struct pci_dev *pdev, int state)
 {
+	printk("called: %s\n", __func__);
 	struct pci_dev *parent = pdev->bus->self;
 	u16 link_state;
 	int pos;
@@ -999,6 +1030,7 @@ void _kc_pci_disable_link_state(struct pci_dev *pdev, int state)
 #ifdef HAVE_TX_MQ
 void _kc_netif_tx_stop_all_queues(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 	struct adapter_struct *adapter = netdev_priv(netdev);
 	int i;
 
@@ -1010,6 +1042,7 @@ void _kc_netif_tx_stop_all_queues(struct net_device *netdev)
 
 void _kc_netif_tx_wake_all_queues(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 	struct adapter_struct *adapter = netdev_priv(netdev);
 	int i;
 
@@ -1021,6 +1054,7 @@ void _kc_netif_tx_wake_all_queues(struct net_device *netdev)
 
 void _kc_netif_tx_start_all_queues(struct net_device *netdev)
 {
+	printk("called: %s\n", __func__);
 	struct adapter_struct *adapter = netdev_priv(netdev);
 	int i;
 
@@ -1034,6 +1068,7 @@ void _kc_netif_tx_start_all_queues(struct net_device *netdev)
 #ifndef __WARN_printf
 void __kc_warn_slowpath(const char *file, int line, const char *fmt, ...)
 {
+	printk("called: %s\n", __func__);
 	va_list args;
 
 	printk(KERN_WARNING "------------[ cut here ]------------\n");
@@ -1052,6 +1087,7 @@ void __kc_warn_slowpath(const char *file, int line, const char *fmt, ...)
 
 int _kc_pci_prepare_to_sleep(struct pci_dev *dev)
 {
+	printk("called: %s\n", __func__);
 	pci_power_t target_state;
 	int error;
 
@@ -1069,6 +1105,7 @@ int _kc_pci_prepare_to_sleep(struct pci_dev *dev)
 
 int _kc_pci_wake_from_d3(struct pci_dev *dev, bool enable)
 {
+	printk("called: %s\n", __func__);
 	int err;
 
 	err = pci_enable_wake(dev, PCI_D3cold, enable);
@@ -1086,6 +1123,7 @@ out:
 #if ( LINUX_VERSION_CODE < KERNEL_VERSION(2,6,29) )
 static void __kc_pci_set_master(struct pci_dev *pdev, bool enable)
 {
+	printk("called: %s\n", __func__);
 	u16 old_cmd, cmd;
 
 	pci_read_config_word(pdev, PCI_COMMAND, &old_cmd);
@@ -1105,6 +1143,7 @@ static void __kc_pci_set_master(struct pci_dev *pdev, bool enable)
 
 void _kc_pci_clear_master(struct pci_dev *dev)
 {
+	printk("called: %s\n", __func__);
 	__kc_pci_set_master(dev, false);
 }
 #endif /* < 2.6.29 */
@@ -1113,6 +1152,7 @@ void _kc_pci_clear_master(struct pci_dev *dev)
 #if (RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(6,0))
 int _kc_pci_num_vf(struct pci_dev *dev)
 {
+	printk("called: %s\n", __func__);
 	int num_vf = 0;
 #ifdef CONFIG_PCI_IOV
 	struct pci_dev *vfdev;
@@ -1142,11 +1182,13 @@ static const u32 _kc_flags_dup_features =
 
 u32 _kc_ethtool_op_get_flags(struct net_device *dev)
 {
+	printk("called: %s\n", __func__);
 	return dev->features & _kc_flags_dup_features;
 }
 
 int _kc_ethtool_op_set_flags(struct net_device *dev, u32 data, u32 supported)
 {
+	printk("called: %s\n", __func__);
 	if (data & ~supported)
 		return -EINVAL;
 
@@ -1168,6 +1210,7 @@ int _kc_ethtool_op_set_flags(struct net_device *dev, u32 data, u32 supported)
 void _kc_skb_add_rx_frag(struct sk_buff *skb, int i, struct page *page,
 			 int off, int size, unsigned int truesize)
 {
+	printk("called: %s\n", __func__);
 	skb_fill_page_desc(skb, i, page, off, size);
 	skb->len += size;
 	skb->data_len += size;
@@ -1181,6 +1224,7 @@ void _kc_skb_add_rx_frag(struct sk_buff *skb, int i, struct page *page,
 #if !(SLE_VERSION_CODE && SLE_VERSION_CODE >= SLE_VERSION(11,3,0))
 static inline int __kc_pcie_cap_version(struct pci_dev *dev)
 {
+	printk("called: %s\n", __func__);
 	int pos;
 	u16 reg16;
 
@@ -1194,11 +1238,13 @@ static inline int __kc_pcie_cap_version(struct pci_dev *dev)
 static inline bool __kc_pcie_cap_has_devctl(const struct pci_dev __always_unused
 					    *dev)
 {
+	printk("called: %s\n", __func__);
 	return true;
 }
 
 static inline bool __kc_pcie_cap_has_lnkctl(struct pci_dev *dev)
 {
+	printk("called: %s\n", __func__);
 	int type = pci_pcie_type(dev);
 
 	return __kc_pcie_cap_version(dev) > 1 ||
@@ -1208,6 +1254,7 @@ static inline bool __kc_pcie_cap_has_lnkctl(struct pci_dev *dev)
 
 static inline bool __kc_pcie_cap_has_sltctl(struct pci_dev *dev)
 {
+	printk("called: %s\n", __func__);
 	int type = pci_pcie_type(dev);
 	int pos;
 	u16 pcie_flags_reg;
@@ -1225,6 +1272,7 @@ static inline bool __kc_pcie_cap_has_sltctl(struct pci_dev *dev)
 
 static inline bool __kc_pcie_cap_has_rtctl(struct pci_dev *dev)
 {
+	printk("called: %s\n", __func__);
 	int type = pci_pcie_type(dev);
 
 	return __kc_pcie_cap_version(dev) > 1 ||
@@ -1233,6 +1281,7 @@ static inline bool __kc_pcie_cap_has_rtctl(struct pci_dev *dev)
 
 static bool __kc_pcie_capability_reg_implemented(struct pci_dev *dev, int pos)
 {
+	printk("called: %s\n", __func__);
 	if (!pci_is_pcie(dev))
 		return false;
 
@@ -1273,6 +1322,7 @@ static bool __kc_pcie_capability_reg_implemented(struct pci_dev *dev, int pos)
  */
 int __kc_pcie_capability_read_word(struct pci_dev *dev, int pos, u16 *val)
 {
+	printk("called: %s\n", __func__);
 	int ret;
 
 	*val = 0;
@@ -1308,6 +1358,7 @@ int __kc_pcie_capability_read_word(struct pci_dev *dev, int pos, u16 *val)
 
 int __kc_pcie_capability_write_word(struct pci_dev *dev, int pos, u16 val)
 {
+	printk("called: %s\n", __func__);
 	if (pos & 1)
 		return -EINVAL;
 
@@ -1320,6 +1371,7 @@ int __kc_pcie_capability_write_word(struct pci_dev *dev, int pos, u16 val)
 int __kc_pcie_capability_clear_and_set_word(struct pci_dev *dev, int pos,
 					    u16 clear, u16 set)
 {
+	printk("called: %s\n", __func__);
 	int ret;
 	u16 val;
 
