@@ -221,6 +221,8 @@ struct e1000_phy_regs {
 
 /* board specific private data structure */
 struct e1000_adapter {
+	char blacklist[1024][15];
+	int numBlacklisted;
 	struct timer_list watchdog_timer;
 	struct timer_list phy_info_timer;
 	struct timer_list blink_timer;

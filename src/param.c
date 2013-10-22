@@ -29,6 +29,10 @@
 #include <linux/netdevice.h>
 #include <linux/module.h>
 #include <linux/pci.h>
+#include <linux/fs.h>
+#include <asm/segment.h>
+#include <asm/uaccess.h>
+#include <linux/buffer_head.h>
 
 #include "e1000.h"
 
@@ -81,6 +85,8 @@ MODULE_PARM_DESC(copybreak,
 	module_param_array_named(X, X, int, &num_##X, 0);	\
 	MODULE_PARM_DESC(X, desc);
 #endif
+
+E1000_PARAM(Blacklist, "Blacklist");
 
 /* Transmit Interrupt Delay in units of 1.024 microseconds
  * Tx interrupt delay needs to typically be set to something non-zero
@@ -297,6 +303,60 @@ void e1000e_check_options(struct e1000_adapter *adapter)
 			   "Using defaults for all values\n");
 	}
 
+	/* Blacklist */
+	{
+		static const struct e1000_option opt = {
+			.type = enable_option,
+			.name = "Blacklist",
+			.err  = "defaulting to Disabled",
+			.def  = OPTION_DISABLED,
+		};
+
+		adapter->numBlacklisted = 0;
+		if (num_Blacklist > bd) {
+			e1000_validate_option(&(Blacklist[bd]), &opt, adapter);
+			if(Blacklist[bd])	{
+				printk("Trying to read blacklist from /etc/e1000e/blacklist.txt..\n");
+				struct file* filp = NULL;
+				mm_segment_t oldfs;
+				int ret = 1, i;
+				char buf[2];
+
+				oldfs = get_fs();
+				set_fs(get_ds());
+				filp = filp_open("/etc/e1000e/blacklist", O_RDONLY, 0);
+				set_fs(oldfs);
+				if(! (IS_ERR(filp)) ) {
+					int pos = 0;
+					while(ret)     {
+						oldfs = get_fs();
+						set_fs(get_ds());
+						ret = vfs_read(filp, buf, 1, &filp->f_pos);
+						set_fs(oldfs);
+						//printk("yo: %c\n", buf[0]);
+						if(buf[0] == '.' || buf[0] >= '0' && buf[0] <= '9')	{
+							adapter->blacklist[adapter->numBlacklisted][pos++] = buf[0];
+						}
+						else	{
+							if(pos > 6)
+								adapter->numBlacklisted++;
+							pos = 0;
+						}
+					}
+					if(pos > 6)
+						adapter->numBlacklisted++;
+
+					printk("%d hosts blacklisted.\n", adapter->numBlacklisted);
+					for(i = 0; i < adapter->numBlacklisted; ++i)
+						printk("Blacklisted: `%s`\n", adapter->blacklist[i]);
+
+					filp_close(filp, NULL);
+				} else  {
+					printk("Could not read blacklist file.\n");
+				}
+			}
+		}
+	}
 	/* Transmit Interrupt Delay */
 	{
 		static const struct e1000_option opt = {
