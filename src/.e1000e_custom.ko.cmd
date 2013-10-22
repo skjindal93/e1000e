@@ -1,0 +1,1 @@
+cmd_/home/shivanker/Desktop/e1000e/src/e1000e_custom.ko := ld -r -m elf_x86_64 -T /usr/src/linux-headers-3.8.0-19-generic/scripts/module-common.lds --build-id  -o /home/shivanker/Desktop/e1000e/src/e1000e_custom.ko /home/shivanker/Desktop/e1000e/src/e1000e_custom.o /home/shivanker/Desktop/e1000e/src/e1000e_custom.mod.o
