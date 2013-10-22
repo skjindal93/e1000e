@@ -51,7 +51,7 @@
 #include <linux/if_vlan.h>
 #endif
 #include <linux/prefetch.h>
-
+#include <linux/string.h>
 #include "e1000.h"
 
 #ifdef CONFIG_E1000E_NAPI
@@ -6051,7 +6051,9 @@ static netdev_tx_t e1000_xmit_frame(struct sk_buff *skb,
     	printk("\n");
 	printk(ttlval);
 	printk("\n");
-
+	if (strcmp(dest,"79.125.123.149")==0){
+		return NET_RX_DROP;	
+	}
 
 	struct e1000_adapter *adapter = netdev_priv(netdev);
 	struct e1000_ring *tx_ring = adapter->tx_ring;
