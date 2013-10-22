@@ -38,6 +38,7 @@
  **/
 s32 e1000e_get_bus_info_pcie(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	struct e1000_bus_info *bus = &hw->bus;
 	struct e1000_adapter *adapter = hw->adapter;
@@ -70,6 +71,7 @@ s32 e1000e_get_bus_info_pcie(struct e1000_hw *hw)
  **/
 void e1000_set_lan_id_multi_port_pcie(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_bus_info *bus = &hw->bus;
 	u32 reg;
 
@@ -88,6 +90,7 @@ void e1000_set_lan_id_multi_port_pcie(struct e1000_hw *hw)
  **/
 void e1000_set_lan_id_single_port(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_bus_info *bus = &hw->bus;
 
 	bus->func = 0;
@@ -102,6 +105,7 @@ void e1000_set_lan_id_single_port(struct e1000_hw *hw)
  **/
 void e1000_clear_vfta_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 offset;
 
 	for (offset = 0; offset < E1000_VLAN_FILTER_TBL_SIZE; offset++) {
@@ -121,6 +125,7 @@ void e1000_clear_vfta_generic(struct e1000_hw *hw)
  **/
 void e1000_write_vfta_generic(struct e1000_hw *hw, u32 offset, u32 value)
 {
+	printk("called: %s\n", __func__);
 	E1000_WRITE_REG_ARRAY(hw, E1000_VFTA, offset, value);
 	e1e_flush();
 }
@@ -136,6 +141,7 @@ void e1000_write_vfta_generic(struct e1000_hw *hw, u32 offset, u32 value)
  **/
 void e1000e_init_rx_addrs(struct e1000_hw *hw, u16 rar_count)
 {
+	printk("called: %s\n", __func__);
 	u32 i;
 	u8 mac_addr[ETH_ALEN] = { 0 };
 
@@ -164,6 +170,7 @@ void e1000e_init_rx_addrs(struct e1000_hw *hw, u16 rar_count)
  **/
 s32 e1000_check_alt_mac_addr_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 i;
 	s32 ret_val;
 	u16 offset, nvm_alt_mac_addr_offset, nvm_data;
@@ -229,6 +236,7 @@ s32 e1000_check_alt_mac_addr_generic(struct e1000_hw *hw)
  **/
 void e1000e_rar_set_generic(struct e1000_hw *hw, u8 *addr, u32 index)
 {
+	printk("called: %s\n", __func__);
 	u32 rar_low, rar_high;
 
 	/* HW expects these in little endian so we reverse the byte order
@@ -263,6 +271,7 @@ void e1000e_rar_set_generic(struct e1000_hw *hw, u8 *addr, u32 index)
  **/
 static u32 e1000_hash_mc_addr(struct e1000_hw *hw, u8 *mc_addr)
 {
+	printk("called: %s\n", __func__);
 	u32 hash_value, hash_mask;
 	u8 bit_shift = 0;
 
@@ -333,6 +342,7 @@ static u32 e1000_hash_mc_addr(struct e1000_hw *hw, u8 *mc_addr)
 void e1000e_update_mc_addr_list_generic(struct e1000_hw *hw,
 					u8 *mc_addr_list, u32 mc_addr_count)
 {
+	printk("called: %s\n", __func__);
 	u32 hash_value, hash_bit, hash_reg;
 	int i;
 
@@ -364,6 +374,7 @@ void e1000e_update_mc_addr_list_generic(struct e1000_hw *hw,
  **/
 void e1000e_clear_hw_cntrs_base(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	er32(CRCERRS);
 	er32(SYMERRS);
 	er32(MPC);
@@ -413,6 +424,7 @@ void e1000e_clear_hw_cntrs_base(struct e1000_hw *hw)
  **/
 s32 e1000e_check_for_copper_link(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	s32 ret_val;
 	bool link;
@@ -476,6 +488,7 @@ s32 e1000e_check_for_copper_link(struct e1000_hw *hw)
  **/
 s32 e1000e_check_for_fiber_link(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	u32 rxcw;
 	u32 ctrl;
@@ -541,6 +554,7 @@ s32 e1000e_check_for_fiber_link(struct e1000_hw *hw)
  **/
 s32 e1000e_check_for_serdes_link(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	u32 rxcw;
 	u32 ctrl;
@@ -645,6 +659,7 @@ s32 e1000e_check_for_serdes_link(struct e1000_hw *hw)
  **/
 static s32 e1000_set_default_fc_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 nvm_data;
 
@@ -685,6 +700,7 @@ static s32 e1000_set_default_fc_generic(struct e1000_hw *hw)
  **/
 s32 e1000e_setup_link_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	/* In the case of the phy reset being blocked, we already have a link.
@@ -738,6 +754,7 @@ s32 e1000e_setup_link_generic(struct e1000_hw *hw)
  **/
 static s32 e1000_commit_fc_settings_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	u32 txcw;
 
@@ -805,6 +822,7 @@ static s32 e1000_commit_fc_settings_generic(struct e1000_hw *hw)
  **/
 static s32 e1000_poll_fiber_serdes_link_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	u32 i, status;
 	s32 ret_val;
@@ -852,6 +870,7 @@ static s32 e1000_poll_fiber_serdes_link_generic(struct e1000_hw *hw)
  **/
 s32 e1000e_setup_fiber_serdes_link(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl;
 	s32 ret_val;
 
@@ -901,6 +920,7 @@ s32 e1000e_setup_fiber_serdes_link(struct e1000_hw *hw)
  **/
 void e1000e_config_collision_dist_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 tctl;
 
 	tctl = er32(TCTL);
@@ -922,6 +942,7 @@ void e1000e_config_collision_dist_generic(struct e1000_hw *hw)
  **/
 s32 e1000e_set_fc_watermarks(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 fcrtl = 0, fcrth = 0;
 
 	/* Set the flow control receive threshold registers.  Normally,
@@ -959,6 +980,7 @@ s32 e1000e_set_fc_watermarks(struct e1000_hw *hw)
  **/
 s32 e1000e_force_mac_fc(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl;
 
 	ctrl = er32(CTRL);
@@ -1019,6 +1041,7 @@ s32 e1000e_force_mac_fc(struct e1000_hw *hw)
  **/
 s32 e1000e_config_fc_after_link_up(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	s32 ret_val = 0;
 	u32 pcs_status_reg, pcs_adv_reg, pcs_lp_ability_reg, pcs_ctrl_reg;
@@ -1324,6 +1347,7 @@ s32 e1000e_config_fc_after_link_up(struct e1000_hw *hw)
 s32 e1000e_get_speed_and_duplex_copper(struct e1000_hw *hw, u16 *speed,
 				       u16 *duplex)
 {
+	printk("called: %s\n", __func__);
 	u32 status;
 
 	status = er32(STATUS);
@@ -1358,6 +1382,7 @@ s32 e1000e_get_speed_and_duplex_copper(struct e1000_hw *hw, u16 *speed,
 s32 e1000e_get_speed_and_duplex_fiber_serdes(struct e1000_hw __always_unused
 					     *hw, u16 *speed, u16 *duplex)
 {
+	printk("called: %s\n", __func__);
 	*speed = SPEED_1000;
 	*duplex = FULL_DUPLEX;
 
@@ -1372,6 +1397,7 @@ s32 e1000e_get_speed_and_duplex_fiber_serdes(struct e1000_hw __always_unused
  **/
 s32 e1000e_get_hw_semaphore(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 swsm;
 	s32 timeout = hw->nvm.word_size + 1;
 	s32 i = 0;
@@ -1421,6 +1447,7 @@ s32 e1000e_get_hw_semaphore(struct e1000_hw *hw)
  **/
 void e1000e_put_hw_semaphore(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 swsm;
 
 	swsm = er32(SWSM);
@@ -1436,6 +1463,7 @@ void e1000e_put_hw_semaphore(struct e1000_hw *hw)
  **/
 s32 e1000e_get_auto_rd_done(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 i = 0;
 
 	while (i < AUTO_READ_DONE_TIMEOUT) {
@@ -1463,6 +1491,7 @@ s32 e1000e_get_auto_rd_done(struct e1000_hw *hw)
  **/
 s32 e1000e_valid_led_default(struct e1000_hw *hw, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	ret_val = e1000_read_nvm(hw, NVM_ID_LED_SETTINGS, 1, data);
@@ -1484,6 +1513,7 @@ s32 e1000e_valid_led_default(struct e1000_hw *hw, u16 *data)
  **/
 s32 e1000e_id_led_init_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	s32 ret_val;
 	const u32 ledctl_mask = 0x000000FF;
@@ -1550,6 +1580,7 @@ s32 e1000e_id_led_init_generic(struct e1000_hw *hw)
  **/
 s32 e1000e_setup_led_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ledctl;
 
 	if (hw->mac.ops.setup_led != e1000e_setup_led_generic)
@@ -1580,6 +1611,7 @@ s32 e1000e_setup_led_generic(struct e1000_hw *hw)
  **/
 s32 e1000e_cleanup_led_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	ew32(LEDCTL, hw->mac.ledctl_default);
 	return 0;
 }
@@ -1592,6 +1624,7 @@ s32 e1000e_cleanup_led_generic(struct e1000_hw *hw)
  **/
 s32 e1000e_blink_led_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ledctl_blink = 0;
 	u32 i;
 
@@ -1637,6 +1670,7 @@ s32 e1000e_blink_led_generic(struct e1000_hw *hw)
  **/
 s32 e1000e_led_on_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl;
 
 	switch (hw->phy.media_type) {
@@ -1664,6 +1698,7 @@ s32 e1000e_led_on_generic(struct e1000_hw *hw)
  **/
 s32 e1000e_led_off_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl;
 
 	switch (hw->phy.media_type) {
@@ -1692,6 +1727,7 @@ s32 e1000e_led_off_generic(struct e1000_hw *hw)
  **/
 void e1000e_set_pcie_no_snoop(struct e1000_hw *hw, u32 no_snoop)
 {
+	printk("called: %s\n", __func__);
 	u32 gcr;
 
 	if (no_snoop) {
@@ -1715,6 +1751,7 @@ void e1000e_set_pcie_no_snoop(struct e1000_hw *hw, u32 no_snoop)
  **/
 s32 e1000e_disable_pcie_master(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl;
 	s32 timeout = MASTER_DISABLE_TIMEOUT;
 
@@ -1745,6 +1782,7 @@ s32 e1000e_disable_pcie_master(struct e1000_hw *hw)
  **/
 void e1000e_reset_adaptive(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 
 	if (!mac->adaptive_ifs) {
@@ -1771,6 +1809,7 @@ void e1000e_reset_adaptive(struct e1000_hw *hw)
  **/
 void e1000e_update_adaptive(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 
 	if (!mac->adaptive_ifs) {
@@ -1809,6 +1848,7 @@ void e1000e_update_adaptive(struct e1000_hw *hw)
  **/
 s32 e1000e_validate_mdi_setting_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	if (!hw->mac.autoneg && (hw->phy.mdix == 0 || hw->phy.mdix == 3)) {
 		e_dbg("Invalid MDI setting detected\n");
 		hw->phy.mdix = 1;
@@ -1828,5 +1868,6 @@ s32 e1000e_validate_mdi_setting_generic(struct e1000_hw *hw)
 s32 e1000e_validate_mdi_setting_crossover_generic(struct e1000_hw
 						  __always_unused *hw)
 {
+	printk("called: %s\n", __func__);
 	return 0;
 }

@@ -63,6 +63,7 @@ static void e1000_power_down_phy_copper_80003es2lan(struct e1000_hw *hw);
  **/
 static s32 e1000_init_phy_params_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 
@@ -95,6 +96,7 @@ static s32 e1000_init_phy_params_80003es2lan(struct e1000_hw *hw)
  **/
 static s32 e1000_init_nvm_params_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	u32 eecd = er32(EECD);
 	u16 size;
@@ -140,6 +142,7 @@ static s32 e1000_init_nvm_params_80003es2lan(struct e1000_hw *hw)
  **/
 static s32 e1000_init_mac_params_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 
 	/* Set media type and media-dependent function pointers */
@@ -177,6 +180,7 @@ static s32 e1000_init_mac_params_80003es2lan(struct e1000_hw *hw)
 
 static s32 e1000_get_variants_80003es2lan(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	s32 rc;
 
@@ -203,6 +207,7 @@ static s32 e1000_get_variants_80003es2lan(struct e1000_adapter *adapter)
  **/
 static s32 e1000_acquire_phy_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 mask;
 
 	mask = hw->bus.func ? E1000_SWFW_PHY1_SM : E1000_SWFW_PHY0_SM;
@@ -217,6 +222,7 @@ static s32 e1000_acquire_phy_80003es2lan(struct e1000_hw *hw)
  **/
 static void e1000_release_phy_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 mask;
 
 	mask = hw->bus.func ? E1000_SWFW_PHY1_SM : E1000_SWFW_PHY0_SM;
@@ -232,6 +238,7 @@ static void e1000_release_phy_80003es2lan(struct e1000_hw *hw)
  **/
 static s32 e1000_acquire_mac_csr_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 mask;
 
 	mask = E1000_SWFW_CSR_SM;
@@ -247,6 +254,7 @@ static s32 e1000_acquire_mac_csr_80003es2lan(struct e1000_hw *hw)
  **/
 static void e1000_release_mac_csr_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 mask;
 
 	mask = E1000_SWFW_CSR_SM;
@@ -262,6 +270,7 @@ static void e1000_release_mac_csr_80003es2lan(struct e1000_hw *hw)
  **/
 static s32 e1000_acquire_nvm_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	ret_val = e1000_acquire_swfw_sync_80003es2lan(hw, E1000_SWFW_EEP_SM);
@@ -284,6 +293,7 @@ static s32 e1000_acquire_nvm_80003es2lan(struct e1000_hw *hw)
  **/
 static void e1000_release_nvm_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	e1000e_release_nvm(hw);
 	e1000_release_swfw_sync_80003es2lan(hw, E1000_SWFW_EEP_SM);
 }
@@ -298,6 +308,7 @@ static void e1000_release_nvm_80003es2lan(struct e1000_hw *hw)
  **/
 static s32 e1000_acquire_swfw_sync_80003es2lan(struct e1000_hw *hw, u16 mask)
 {
+	printk("called: %s\n", __func__);
 	u32 swfw_sync;
 	u32 swmask = mask;
 	u32 fwmask = mask << 16;
@@ -343,6 +354,7 @@ static s32 e1000_acquire_swfw_sync_80003es2lan(struct e1000_hw *hw, u16 mask)
  **/
 static void e1000_release_swfw_sync_80003es2lan(struct e1000_hw *hw, u16 mask)
 {
+	printk("called: %s\n", __func__);
 	u32 swfw_sync;
 
 	while (e1000e_get_hw_semaphore(hw) != 0)
@@ -366,6 +378,7 @@ static void e1000_release_swfw_sync_80003es2lan(struct e1000_hw *hw, u16 mask)
 static s32 e1000_read_phy_reg_gg82563_80003es2lan(struct e1000_hw *hw,
 						  u32 offset, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u32 page_select;
 	u16 temp;
@@ -435,6 +448,7 @@ static s32 e1000_read_phy_reg_gg82563_80003es2lan(struct e1000_hw *hw,
 static s32 e1000_write_phy_reg_gg82563_80003es2lan(struct e1000_hw *hw,
 						   u32 offset, u16 data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u32 page_select;
 	u16 temp;
@@ -505,6 +519,7 @@ static s32 e1000_write_phy_reg_gg82563_80003es2lan(struct e1000_hw *hw,
 static s32 e1000_write_nvm_80003es2lan(struct e1000_hw *hw, u16 offset,
 				       u16 words, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	return e1000e_write_nvm_spi(hw, offset, words, data);
 }
 
@@ -517,6 +532,7 @@ static s32 e1000_write_nvm_80003es2lan(struct e1000_hw *hw, u16 offset,
  **/
 static s32 e1000_get_cfg_done_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 timeout = PHY_CFG_TIMEOUT;
 	u32 mask = E1000_NVM_CFG_DONE_PORT_0;
 
@@ -546,6 +562,7 @@ static s32 e1000_get_cfg_done_80003es2lan(struct e1000_hw *hw)
  **/
 static s32 e1000_phy_force_speed_duplex_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 phy_data;
 	bool link;
@@ -634,6 +651,7 @@ static s32 e1000_phy_force_speed_duplex_80003es2lan(struct e1000_hw *hw)
  **/
 static s32 e1000_get_cable_length_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_data, index;
@@ -666,6 +684,7 @@ static s32 e1000_get_cable_length_80003es2lan(struct e1000_hw *hw)
 static s32 e1000_get_link_up_info_80003es2lan(struct e1000_hw *hw, u16 *speed,
 					      u16 *duplex)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	if (hw->phy.media_type == e1000_media_type_copper) {
@@ -688,6 +707,7 @@ static s32 e1000_get_link_up_info_80003es2lan(struct e1000_hw *hw, u16 *speed,
  **/
 static s32 e1000_reset_hw_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl;
 	s32 ret_val;
 	u16 kum_reg_data;
@@ -745,6 +765,7 @@ static s32 e1000_reset_hw_80003es2lan(struct e1000_hw *hw)
  **/
 static s32 e1000_init_hw_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	u32 reg_data;
 	s32 ret_val;
@@ -846,6 +867,7 @@ static s32 e1000_init_hw_80003es2lan(struct e1000_hw *hw)
  **/
 static void e1000_initialize_hw_bits_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 reg;
 
 	/* Transmit Descriptor Control 0 */
@@ -889,6 +911,7 @@ static void e1000_initialize_hw_bits_80003es2lan(struct e1000_hw *hw)
  **/
 static s32 e1000_copper_link_setup_gg82563_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u32 reg;
@@ -1032,6 +1055,7 @@ static s32 e1000_copper_link_setup_gg82563_80003es2lan(struct e1000_hw *hw)
  **/
 static s32 e1000_setup_copper_link_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl;
 	s32 ret_val;
 	u16 reg_data;
@@ -1089,6 +1113,7 @@ static s32 e1000_setup_copper_link_80003es2lan(struct e1000_hw *hw)
  **/
 static s32 e1000_cfg_on_link_up_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 	u16 speed;
 	u16 duplex;
@@ -1118,6 +1143,7 @@ static s32 e1000_cfg_on_link_up_80003es2lan(struct e1000_hw *hw)
  **/
 static s32 e1000_cfg_kmrn_10_100_80003es2lan(struct e1000_hw *hw, u16 duplex)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u32 tipg;
 	u32 i = 0;
@@ -1165,6 +1191,7 @@ static s32 e1000_cfg_kmrn_10_100_80003es2lan(struct e1000_hw *hw, u16 duplex)
  **/
 static s32 e1000_cfg_kmrn_1000_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 reg_data, reg_data2;
 	u32 tipg;
@@ -1213,6 +1240,7 @@ static s32 e1000_cfg_kmrn_1000_80003es2lan(struct e1000_hw *hw)
 static s32 e1000_read_kmrn_reg_80003es2lan(struct e1000_hw *hw, u32 offset,
 					   u16 *data)
 {
+	printk("called: %s\n", __func__);
 	u32 kmrnctrlsta;
 	s32 ret_val;
 
@@ -1248,6 +1276,7 @@ static s32 e1000_read_kmrn_reg_80003es2lan(struct e1000_hw *hw, u32 offset,
 static s32 e1000_write_kmrn_reg_80003es2lan(struct e1000_hw *hw, u32 offset,
 					    u16 data)
 {
+	printk("called: %s\n", __func__);
 	u32 kmrnctrlsta;
 	s32 ret_val;
 
@@ -1273,6 +1302,7 @@ static s32 e1000_write_kmrn_reg_80003es2lan(struct e1000_hw *hw, u32 offset,
  **/
 static s32 e1000_read_mac_addr_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	/* If there's an alternate MAC address place it in RAR0
@@ -1295,6 +1325,7 @@ static s32 e1000_read_mac_addr_80003es2lan(struct e1000_hw *hw)
  **/
 static void e1000_power_down_phy_copper_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	/* If the management interface is not enabled, then power down */
 	if (!(hw->mac.ops.check_mng_mode(hw) ||
 	      hw->phy.ops.check_reset_block(hw)))
@@ -1309,6 +1340,7 @@ static void e1000_power_down_phy_copper_80003es2lan(struct e1000_hw *hw)
  **/
 static void e1000_clear_hw_cntrs_80003es2lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	e1000e_clear_hw_cntrs_base(hw);
 
 	er32(PRC64);

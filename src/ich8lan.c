@@ -142,21 +142,25 @@ static s32 e1000_oem_bits_config_ich8lan(struct e1000_hw *hw, bool d0_state);
 
 static inline u16 __er16flash(struct e1000_hw *hw, unsigned long reg)
 {
+	printk("called: %s\n", __func__);
 	return readw(hw->flash_address + reg);
 }
 
 static inline u32 __er32flash(struct e1000_hw *hw, unsigned long reg)
 {
+	printk("called: %s\n", __func__);
 	return readl(hw->flash_address + reg);
 }
 
 static inline void __ew16flash(struct e1000_hw *hw, unsigned long reg, u16 val)
 {
+	printk("called: %s\n", __func__);
 	writew(val, hw->flash_address + reg);
 }
 
 static inline void __ew32flash(struct e1000_hw *hw, unsigned long reg, u32 val)
 {
+	printk("called: %s\n", __func__);
 	writel(val, hw->flash_address + reg);
 }
 
@@ -177,6 +181,7 @@ static inline void __ew32flash(struct e1000_hw *hw, unsigned long reg, u32 val)
  **/
 static bool e1000_phy_is_accessible_pchlan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 phy_reg = 0;
 	u32 phy_id = 0;
 	s32 ret_val = 0;
@@ -245,6 +250,7 @@ out:
  **/
 static void e1000_toggle_lanphypc_pch_lpt(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 mac_reg;
 
 	/* Set Phy Config Counter to 50msec */
@@ -286,6 +292,7 @@ static void e1000_toggle_lanphypc_pch_lpt(struct e1000_hw *hw)
  **/
 static s32 e1000_init_phy_workarounds_pchlan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = hw->adapter;
 	u32 mac_reg, fwsm = er32(FWSM);
 	s32 ret_val;
@@ -421,6 +428,7 @@ out:
  **/
 static s32 e1000_init_phy_params_pchlan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 
@@ -503,6 +511,7 @@ static s32 e1000_init_phy_params_pchlan(struct e1000_hw *hw)
  **/
 static s32 e1000_init_phy_params_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 i = 0;
@@ -583,6 +592,7 @@ static s32 e1000_init_phy_params_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_init_nvm_params_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	struct e1000_dev_spec_ich8lan *dev_spec = &hw->dev_spec.ich8lan;
 	u32 gfpreg, sector_base_addr, sector_end_addr;
@@ -637,6 +647,7 @@ static s32 e1000_init_nvm_params_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_init_mac_params_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	u16 pci_cfg;
 
@@ -727,6 +738,7 @@ static s32 e1000_init_mac_params_ich8lan(struct e1000_hw *hw)
 static s32 __e1000_access_emi_reg_locked(struct e1000_hw *hw, u16 address,
 					 u16 *data, bool read)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	ret_val = e1e_wphy_locked(hw, I82579_EMI_ADDR, address);
@@ -751,6 +763,7 @@ static s32 __e1000_access_emi_reg_locked(struct e1000_hw *hw, u16 address,
  **/
 s32 e1000_read_emi_reg_locked(struct e1000_hw *hw, u16 addr, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000_access_emi_reg_locked(hw, addr, data, true);
 }
 
@@ -764,6 +777,7 @@ s32 e1000_read_emi_reg_locked(struct e1000_hw *hw, u16 addr, u16 *data)
  **/
 s32 e1000_write_emi_reg_locked(struct e1000_hw *hw, u16 addr, u16 data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000_access_emi_reg_locked(hw, addr, &data, false);
 }
 
@@ -783,6 +797,7 @@ s32 e1000_write_emi_reg_locked(struct e1000_hw *hw, u16 addr, u16 data)
  **/
 s32 e1000_set_eee_pchlan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_dev_spec_ich8lan *dev_spec = &hw->dev_spec.ich8lan;
 	s32 ret_val;
 	u16 lpa, pcs_status, adv, adv_addr, lpi_ctrl, data;
@@ -871,6 +886,7 @@ release:
  **/
 static s32 e1000_k1_workaround_lpt_lp(struct e1000_hw *hw, bool link)
 {
+	printk("called: %s\n", __func__);
 	u32 fextnvm6 = er32(FEXTNVM6);
 	u32 status = er32(STATUS);
 	s32 ret_val = 0;
@@ -964,6 +980,7 @@ update_fextnvm6:
  **/
 static s32 e1000_platform_pm_pch_lpt(struct e1000_hw *hw, bool link)
 {
+	printk("called: %s\n", __func__);
 	u32 reg = link << (E1000_LTRV_REQ_SHIFT + E1000_LTRV_NOSNOOP_SHIFT) |
 	    link << E1000_LTRV_REQ_SHIFT | E1000_LTRV_SEND;
 	u16 lat_enc = 0;	/* latency encoded */
@@ -1046,6 +1063,7 @@ static s32 e1000_platform_pm_pch_lpt(struct e1000_hw *hw, bool link)
  */
 s32 e1000_enable_ulp_lpt_lp(struct e1000_hw *hw, bool to_sx)
 {
+	printk("called: %s\n", __func__);
 	u32 mac_reg;
 	s32 ret_val = 0;
 	u16 phy_reg;
@@ -1156,6 +1174,7 @@ out:
  */
 s32 e1000_disable_ulp_lpt_lp(struct e1000_hw *hw, bool force)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 	u32 mac_reg;
 	u16 phy_reg;
@@ -1291,6 +1310,7 @@ out:
  **/
 static s32 e1000_check_for_copper_link_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	s32 ret_val;
 	bool link;
@@ -1440,6 +1460,7 @@ static s32 e1000_check_for_copper_link_ich8lan(struct e1000_hw *hw)
 
 static s32 e1000_get_variants_ich8lan(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 	s32 rc;
 
@@ -1502,6 +1523,7 @@ static DEFINE_MUTEX(nvm_mutex);
  **/
 static s32 e1000_acquire_nvm_ich8lan(struct e1000_hw __always_unused *hw)
 {
+	printk("called: %s\n", __func__);
 	mutex_lock(&nvm_mutex);
 
 	return 0;
@@ -1515,6 +1537,7 @@ static s32 e1000_acquire_nvm_ich8lan(struct e1000_hw __always_unused *hw)
  **/
 static void e1000_release_nvm_ich8lan(struct e1000_hw __always_unused *hw)
 {
+	printk("called: %s\n", __func__);
 	mutex_unlock(&nvm_mutex);
 }
 
@@ -1527,6 +1550,7 @@ static void e1000_release_nvm_ich8lan(struct e1000_hw __always_unused *hw)
  **/
 static s32 e1000_acquire_swflag_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 extcnf_ctrl, timeout = PHY_CFG_TIMEOUT;
 	s32 ret_val = 0;
 
@@ -1590,6 +1614,7 @@ out:
  **/
 static void e1000_release_swflag_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 extcnf_ctrl;
 
 	extcnf_ctrl = er32(EXTCNF_CTRL);
@@ -1614,6 +1639,7 @@ static void e1000_release_swflag_ich8lan(struct e1000_hw *hw)
  **/
 static bool e1000_check_mng_mode_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 fwsm;
 
 	fwsm = er32(FWSM);
@@ -1632,6 +1658,7 @@ static bool e1000_check_mng_mode_ich8lan(struct e1000_hw *hw)
  **/
 static bool e1000_check_mng_mode_pchlan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 fwsm;
 
 	fwsm = er32(FWSM);
@@ -1652,6 +1679,7 @@ static bool e1000_check_mng_mode_pchlan(struct e1000_hw *hw)
  **/
 static void e1000_rar_set_pch2lan(struct e1000_hw *hw, u8 *addr, u32 index)
 {
+	printk("called: %s\n", __func__);
 	u32 rar_low, rar_high;
 
 	/* HW expects these in little endian so we reverse the byte order
@@ -1718,6 +1746,7 @@ out:
  **/
 static void e1000_rar_set_pch_lpt(struct e1000_hw *hw, u8 *addr, u32 index)
 {
+	printk("called: %s\n", __func__);
 	u32 rar_low, rar_high;
 	u32 wlock_mac;
 
@@ -1788,6 +1817,7 @@ out:
  **/
 static s32 e1000_check_reset_block_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 fwsm;
 
 	fwsm = er32(FWSM);
@@ -1803,6 +1833,7 @@ static s32 e1000_check_reset_block_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_write_smbus_addr(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 phy_data;
 	u32 strap = er32(STRAP);
 	u32 freq = (strap & E1000_STRAP_SMT_FREQ_MASK) >>
@@ -1844,6 +1875,7 @@ static s32 e1000_write_smbus_addr(struct e1000_hw *hw)
  **/
 static s32 e1000_sw_lcd_config_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	u32 i, data, cnf_size, cnf_base_addr, sw_cfg_mask;
 	s32 ret_val = 0;
@@ -1965,6 +1997,7 @@ release:
  **/
 static s32 e1000_k1_gig_workaround_hv(struct e1000_hw *hw, bool link)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 	u16 status_reg = 0;
 	bool k1_enable = hw->dev_spec.ich8lan.nvm_k1_enabled;
@@ -2042,6 +2075,7 @@ release:
  **/
 s32 e1000_configure_k1_ich8lan(struct e1000_hw *hw, bool k1_enable)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u32 ctrl_reg = 0;
 	u32 ctrl_ext = 0;
@@ -2093,6 +2127,7 @@ s32 e1000_configure_k1_ich8lan(struct e1000_hw *hw, bool k1_enable)
  **/
 static s32 e1000_oem_bits_config_ich8lan(struct e1000_hw *hw, bool d0_state)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 	u32 mac_reg;
 	u16 oem_reg;
@@ -2157,6 +2192,7 @@ release:
  **/
 static s32 e1000_set_mdio_slow_mode_hv(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 data;
 
@@ -2177,6 +2213,7 @@ static s32 e1000_set_mdio_slow_mode_hv(struct e1000_hw *hw)
  **/
 static s32 e1000_hv_phy_workarounds_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 	u16 phy_data;
 
@@ -2257,6 +2294,7 @@ release:
  **/
 void e1000_copy_rx_addrs_to_phy_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 mac_reg;
 	u16 i, phy_reg = 0;
 	s32 ret_val;
@@ -2298,6 +2336,7 @@ release:
  **/
 s32 e1000_lv_jumbo_workaround_ich8lan(struct e1000_hw *hw, bool enable)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 	u16 phy_reg, data;
 	u32 mac_reg;
@@ -2464,6 +2503,7 @@ s32 e1000_lv_jumbo_workaround_ich8lan(struct e1000_hw *hw, bool enable)
  **/
 static s32 e1000_lv_phy_workarounds_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 
 	if (hw->mac.type != e1000_pch2lan)
@@ -2497,6 +2537,7 @@ release:
  **/
 static s32 e1000_k1_workaround_lv(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 	u16 status_reg = 0;
 	u32 mac_reg;
@@ -2553,6 +2594,7 @@ static s32 e1000_k1_workaround_lv(struct e1000_hw *hw)
  **/
 static void e1000_gate_hw_phy_config_ich8lan(struct e1000_hw *hw, bool gate)
 {
+	printk("called: %s\n", __func__);
 	u32 extcnf_ctrl;
 
 	if (hw->mac.type < e1000_pch2lan)
@@ -2577,6 +2619,7 @@ static void e1000_gate_hw_phy_config_ich8lan(struct e1000_hw *hw, bool gate)
  **/
 static void e1000_lan_init_done_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 data, loop = E1000_ICH8_LAN_INIT_TIMEOUT;
 
 	/* Wait for basic configuration completes before proceeding */
@@ -2605,6 +2648,7 @@ static void e1000_lan_init_done_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_post_phy_reset_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 	u16 reg;
 
@@ -2675,6 +2719,7 @@ static s32 e1000_post_phy_reset_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_phy_hw_reset_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 
 	/* Gate automatic PHY configuration by hardware on non-managed 82579 */
@@ -2702,6 +2747,7 @@ static s32 e1000_phy_hw_reset_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_set_lplu_state_pchlan(struct e1000_hw *hw, bool active)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 oem_reg;
 
@@ -2735,6 +2781,7 @@ static s32 e1000_set_lplu_state_pchlan(struct e1000_hw *hw, bool active)
  **/
 static s32 e1000_set_d0_lplu_state_ich8lan(struct e1000_hw *hw, bool active)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	u32 phy_ctrl;
 	s32 ret_val = 0;
@@ -2821,6 +2868,7 @@ static s32 e1000_set_d0_lplu_state_ich8lan(struct e1000_hw *hw, bool active)
  **/
 static s32 e1000_set_d3_lplu_state_ich8lan(struct e1000_hw *hw, bool active)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	u32 phy_ctrl;
 	s32 ret_val = 0;
@@ -2900,6 +2948,7 @@ static s32 e1000_set_d3_lplu_state_ich8lan(struct e1000_hw *hw, bool active)
  **/
 static s32 e1000_valid_nvm_bank_detect_ich8lan(struct e1000_hw *hw, u32 *bank)
 {
+	printk("called: %s\n", __func__);
 	u32 eecd;
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	u32 bank1_offset = nvm->flash_bank_size * sizeof(u16);
@@ -2966,6 +3015,7 @@ static s32 e1000_valid_nvm_bank_detect_ich8lan(struct e1000_hw *hw, u32 *bank)
 static s32 e1000_read_nvm_ich8lan(struct e1000_hw *hw, u16 offset, u16 words,
 				  u16 *data)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	struct e1000_dev_spec_ich8lan *dev_spec = &hw->dev_spec.ich8lan;
 	u32 act_offset;
@@ -3023,6 +3073,7 @@ out:
  **/
 static s32 e1000_flash_cycle_init_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	union ich8_hws_flash_status hsfsts;
 	s32 ret_val = -E1000_ERR_NVM;
 
@@ -3093,6 +3144,7 @@ static s32 e1000_flash_cycle_init_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_flash_cycle_ich8lan(struct e1000_hw *hw, u32 timeout)
 {
+	printk("called: %s\n", __func__);
 	union ich8_hws_flash_ctrl hsflctl;
 	union ich8_hws_flash_status hsfsts;
 	u32 i = 0;
@@ -3128,6 +3180,7 @@ static s32 e1000_flash_cycle_ich8lan(struct e1000_hw *hw, u32 timeout)
 static s32 e1000_read_flash_word_ich8lan(struct e1000_hw *hw, u32 offset,
 					 u16 *data)
 {
+	printk("called: %s\n", __func__);
 	/* Must convert offset into bytes. */
 	offset <<= 1;
 	return e1000_read_flash_data_ich8lan(hw, offset, 2, data);
@@ -3144,6 +3197,7 @@ static s32 e1000_read_flash_word_ich8lan(struct e1000_hw *hw, u32 offset,
 static s32 e1000_read_flash_byte_ich8lan(struct e1000_hw *hw, u32 offset,
 					 u8 *data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 word = 0;
 
@@ -3168,6 +3222,7 @@ static s32 e1000_read_flash_byte_ich8lan(struct e1000_hw *hw, u32 offset,
 static s32 e1000_read_flash_data_ich8lan(struct e1000_hw *hw, u32 offset,
 					 u8 size, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	union ich8_hws_flash_status hsfsts;
 	union ich8_hws_flash_ctrl hsflctl;
 	u32 flash_linear_addr;
@@ -3243,6 +3298,7 @@ static s32 e1000_read_flash_data_ich8lan(struct e1000_hw *hw, u32 offset,
 static s32 e1000_write_nvm_ich8lan(struct e1000_hw *hw, u16 offset, u16 words,
 				   u16 *data)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	struct e1000_dev_spec_ich8lan *dev_spec = &hw->dev_spec.ich8lan;
 	u16 i;
@@ -3278,6 +3334,7 @@ static s32 e1000_write_nvm_ich8lan(struct e1000_hw *hw, u16 offset, u16 words,
  **/
 static s32 e1000_update_nvm_checksum_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	struct e1000_dev_spec_ich8lan *dev_spec = &hw->dev_spec.ich8lan;
 	u32 i, act_offset, new_bank_offset, old_bank_offset, bank;
@@ -3430,6 +3487,7 @@ out:
  **/
 static s32 e1000_validate_nvm_checksum_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 data;
 	u16 word;
@@ -3480,6 +3538,7 @@ static s32 e1000_validate_nvm_checksum_ich8lan(struct e1000_hw *hw)
 static s32 e1000_write_flash_data_ich8lan(struct e1000_hw *hw, u32 offset,
 					  u8 size, u16 data)
 {
+	printk("called: %s\n", __func__);
 	union ich8_hws_flash_status hsfsts;
 	union ich8_hws_flash_ctrl hsflctl;
 	u32 flash_linear_addr;
@@ -3554,6 +3613,7 @@ static s32 e1000_write_flash_data_ich8lan(struct e1000_hw *hw, u32 offset,
 static s32 e1000_write_flash_byte_ich8lan(struct e1000_hw *hw, u32 offset,
 					  u8 data)
 {
+	printk("called: %s\n", __func__);
 	u16 word = (u16)data;
 
 	return e1000_write_flash_data_ich8lan(hw, offset, 1, word);
@@ -3571,6 +3631,7 @@ static s32 e1000_write_flash_byte_ich8lan(struct e1000_hw *hw, u32 offset,
 static s32 e1000_retry_write_flash_byte_ich8lan(struct e1000_hw *hw,
 						u32 offset, u8 byte)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 program_retries;
 
@@ -3601,6 +3662,7 @@ static s32 e1000_retry_write_flash_byte_ich8lan(struct e1000_hw *hw,
  **/
 static s32 e1000_erase_flash_bank_ich8lan(struct e1000_hw *hw, u32 bank)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_nvm_info *nvm = &hw->nvm;
 	union ich8_hws_flash_status hsfsts;
 	union ich8_hws_flash_ctrl hsflctl;
@@ -3705,6 +3767,7 @@ static s32 e1000_erase_flash_bank_ich8lan(struct e1000_hw *hw, u32 bank)
  **/
 static s32 e1000_valid_led_default_ich8lan(struct e1000_hw *hw, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	ret_val = e1000_read_nvm(hw, NVM_ID_LED_SETTINGS, 1, data);
@@ -3734,6 +3797,7 @@ static s32 e1000_valid_led_default_ich8lan(struct e1000_hw *hw, u16 *data)
  **/
 static s32 e1000_id_led_init_pchlan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	s32 ret_val;
 	const u32 ledctl_on = E1000_LEDCTL_MODE_LINK_UP;
@@ -3800,6 +3864,7 @@ static s32 e1000_id_led_init_pchlan(struct e1000_hw *hw)
  **/
 static s32 e1000_get_bus_info_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_bus_info *bus = &hw->bus;
 	s32 ret_val;
 
@@ -3825,6 +3890,7 @@ static s32 e1000_get_bus_info_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_reset_hw_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_dev_spec_ich8lan *dev_spec = &hw->dev_spec.ich8lan;
 	u16 kum_cfg;
 	u32 ctrl, reg;
@@ -3944,6 +4010,7 @@ static s32 e1000_reset_hw_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_init_hw_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	u32 ctrl_ext, txdctl, snoop;
 	s32 ret_val;
@@ -4027,6 +4094,7 @@ static s32 e1000_init_hw_ich8lan(struct e1000_hw *hw)
  **/
 static void e1000_initialize_hw_bits_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 reg;
 
 	/* Extended Device Control */
@@ -4107,6 +4175,7 @@ static void e1000_initialize_hw_bits_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_setup_link_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	if (hw->phy.ops.check_reset_block(hw))
@@ -4163,6 +4232,7 @@ static s32 e1000_setup_link_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_setup_copper_link_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl;
 	s32 ret_val;
 	u16 reg_data;
@@ -4249,6 +4319,7 @@ static s32 e1000_setup_copper_link_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_setup_copper_link_pch_lpt(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 ctrl;
 	s32 ret_val;
 
@@ -4277,6 +4348,7 @@ static s32 e1000_setup_copper_link_pch_lpt(struct e1000_hw *hw)
 static s32 e1000_get_link_up_info_ich8lan(struct e1000_hw *hw, u16 *speed,
 					  u16 *duplex)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	ret_val = e1000e_get_speed_and_duplex_copper(hw, speed, duplex);
@@ -4308,6 +4380,7 @@ static s32 e1000_get_link_up_info_ich8lan(struct e1000_hw *hw, u16 *speed,
  **/
 static s32 e1000_kmrn_lock_loss_workaround_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_dev_spec_ich8lan *dev_spec = &hw->dev_spec.ich8lan;
 	u32 phy_ctrl;
 	s32 ret_val;
@@ -4369,6 +4442,7 @@ static s32 e1000_kmrn_lock_loss_workaround_ich8lan(struct e1000_hw *hw)
 void e1000e_set_kmrn_lock_loss_workaround_ich8lan(struct e1000_hw *hw,
 						  bool state)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_dev_spec_ich8lan *dev_spec = &hw->dev_spec.ich8lan;
 
 	if (hw->mac.type != e1000_ich8lan) {
@@ -4391,6 +4465,7 @@ void e1000e_set_kmrn_lock_loss_workaround_ich8lan(struct e1000_hw *hw,
  **/
 void e1000e_igp3_phy_powerdown_workaround_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 reg;
 	u16 data;
 	u8 retry = 0;
@@ -4442,6 +4517,7 @@ void e1000e_igp3_phy_powerdown_workaround_ich8lan(struct e1000_hw *hw)
  **/
 void e1000e_gig_downshift_workaround_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 reg_data;
 
@@ -4478,6 +4554,7 @@ void e1000e_gig_downshift_workaround_ich8lan(struct e1000_hw *hw)
  **/
 void e1000_suspend_workarounds_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_dev_spec_ich8lan *dev_spec = &hw->dev_spec.ich8lan;
 	u32 phy_ctrl;
 	s32 ret_val;
@@ -4601,6 +4678,7 @@ out:
  **/
 void e1000_resume_workarounds_pchlan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	if (hw->mac.type < e1000_pch2lan)
@@ -4665,6 +4743,7 @@ release:
  **/
 static s32 e1000_cleanup_led_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	if (hw->phy.type == e1000_phy_ife)
 		return e1e_wphy(hw, IFE_PHY_SPECIAL_CONTROL_LED, 0);
 
@@ -4680,6 +4759,7 @@ static s32 e1000_cleanup_led_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_led_on_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	if (hw->phy.type == e1000_phy_ife)
 		return e1e_wphy(hw, IFE_PHY_SPECIAL_CONTROL_LED,
 				(IFE_PSCL_PROBE_MODE | IFE_PSCL_PROBE_LEDS_ON));
@@ -4696,6 +4776,7 @@ static s32 e1000_led_on_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_led_off_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	if (hw->phy.type == e1000_phy_ife)
 		return e1e_wphy(hw, IFE_PHY_SPECIAL_CONTROL_LED,
 				(IFE_PSCL_PROBE_MODE |
@@ -4713,6 +4794,7 @@ static s32 e1000_led_off_ich8lan(struct e1000_hw *hw)
  **/
 static s32 e1000_setup_led_pchlan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	return e1e_wphy(hw, HV_LED_CONFIG, (u16)hw->mac.ledctl_mode1);
 }
 
@@ -4724,6 +4806,7 @@ static s32 e1000_setup_led_pchlan(struct e1000_hw *hw)
  **/
 static s32 e1000_cleanup_led_pchlan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	return e1e_wphy(hw, HV_LED_CONFIG, (u16)hw->mac.ledctl_default);
 }
 
@@ -4735,6 +4818,7 @@ static s32 e1000_cleanup_led_pchlan(struct e1000_hw *hw)
  **/
 static s32 e1000_led_on_pchlan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 data = (u16)hw->mac.ledctl_mode2;
 	u32 i, led;
 
@@ -4765,6 +4849,7 @@ static s32 e1000_led_on_pchlan(struct e1000_hw *hw)
  **/
 static s32 e1000_led_off_pchlan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 data = (u16)hw->mac.ledctl_mode1;
 	u32 i, led;
 
@@ -4801,6 +4886,7 @@ static s32 e1000_led_off_pchlan(struct e1000_hw *hw)
  **/
 static s32 e1000_get_cfg_done_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 	u32 bank = 0;
 	u32 status;
@@ -4855,6 +4941,7 @@ static s32 e1000_get_cfg_done_ich8lan(struct e1000_hw *hw)
  **/
 static void e1000_power_down_phy_copper_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	/* If the management interface is not enabled, then power down */
 	if (!(hw->mac.ops.check_mng_mode(hw) ||
 	      hw->phy.ops.check_reset_block(hw)))
@@ -4870,6 +4957,7 @@ static void e1000_power_down_phy_copper_ich8lan(struct e1000_hw *hw)
  **/
 static void e1000_clear_hw_cntrs_ich8lan(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 phy_data;
 	s32 ret_val;
 

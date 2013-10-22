@@ -69,6 +69,7 @@ static const u16 e1000_igp_2_cable_length_table[] = {
  **/
 s32 e1000e_check_reset_block_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 manc;
 
 	manc = er32(MANC);
@@ -85,6 +86,7 @@ s32 e1000e_check_reset_block_generic(struct e1000_hw *hw)
  **/
 s32 e1000e_get_phy_id(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val = 0;
 	u16 phy_id;
@@ -124,6 +126,7 @@ s32 e1000e_get_phy_id(struct e1000_hw *hw)
  **/
 s32 e1000e_phy_reset_dsp(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	ret_val = e1e_wphy(hw, M88E1000_PHY_GEN_CONTROL, 0xC1);
@@ -144,6 +147,7 @@ s32 e1000e_phy_reset_dsp(struct e1000_hw *hw)
  **/
 s32 e1000e_read_phy_reg_mdic(struct e1000_hw *hw, u32 offset, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	u32 i, mdic = 0;
 
@@ -207,6 +211,7 @@ s32 e1000e_read_phy_reg_mdic(struct e1000_hw *hw, u32 offset, u16 *data)
  **/
 s32 e1000e_write_phy_reg_mdic(struct e1000_hw *hw, u32 offset, u16 data)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	u32 i, mdic = 0;
 
@@ -272,6 +277,7 @@ s32 e1000e_write_phy_reg_mdic(struct e1000_hw *hw, u32 offset, u16 data)
  **/
 s32 e1000e_read_phy_reg_m88(struct e1000_hw *hw, u32 offset, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	ret_val = hw->phy.ops.acquire(hw);
@@ -297,6 +303,7 @@ s32 e1000e_read_phy_reg_m88(struct e1000_hw *hw, u32 offset, u16 *data)
  **/
 s32 e1000e_write_phy_reg_m88(struct e1000_hw *hw, u32 offset, u16 data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	ret_val = hw->phy.ops.acquire(hw);
@@ -322,6 +329,7 @@ s32 e1000e_write_phy_reg_m88(struct e1000_hw *hw, u32 offset, u16 data)
  **/
 s32 e1000_set_page_igp(struct e1000_hw *hw, u16 page)
 {
+	printk("called: %s\n", __func__);
 	e_dbg("Setting page 0x%x\n", page);
 
 	hw->phy.addr = 1;
@@ -343,6 +351,7 @@ s32 e1000_set_page_igp(struct e1000_hw *hw, u16 page)
 static s32 __e1000e_read_phy_reg_igp(struct e1000_hw *hw, u32 offset, u16 *data,
 				     bool locked)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 
 	if (!locked) {
@@ -380,6 +389,7 @@ static s32 __e1000e_read_phy_reg_igp(struct e1000_hw *hw, u32 offset, u16 *data,
  **/
 s32 e1000e_read_phy_reg_igp(struct e1000_hw *hw, u32 offset, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000e_read_phy_reg_igp(hw, offset, data, false);
 }
 
@@ -394,6 +404,7 @@ s32 e1000e_read_phy_reg_igp(struct e1000_hw *hw, u32 offset, u16 *data)
  **/
 s32 e1000e_read_phy_reg_igp_locked(struct e1000_hw *hw, u32 offset, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000e_read_phy_reg_igp(hw, offset, data, true);
 }
 
@@ -410,6 +421,7 @@ s32 e1000e_read_phy_reg_igp_locked(struct e1000_hw *hw, u32 offset, u16 *data)
 static s32 __e1000e_write_phy_reg_igp(struct e1000_hw *hw, u32 offset, u16 data,
 				      bool locked)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 
 	if (!locked) {
@@ -445,6 +457,7 @@ static s32 __e1000e_write_phy_reg_igp(struct e1000_hw *hw, u32 offset, u16 data,
  **/
 s32 e1000e_write_phy_reg_igp(struct e1000_hw *hw, u32 offset, u16 data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000e_write_phy_reg_igp(hw, offset, data, false);
 }
 
@@ -459,6 +472,7 @@ s32 e1000e_write_phy_reg_igp(struct e1000_hw *hw, u32 offset, u16 data)
  **/
 s32 e1000e_write_phy_reg_igp_locked(struct e1000_hw *hw, u32 offset, u16 data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000e_write_phy_reg_igp(hw, offset, data, true);
 }
 
@@ -476,6 +490,7 @@ s32 e1000e_write_phy_reg_igp_locked(struct e1000_hw *hw, u32 offset, u16 data)
 static s32 __e1000_read_kmrn_reg(struct e1000_hw *hw, u32 offset, u16 *data,
 				 bool locked)
 {
+	printk("called: %s\n", __func__);
 	u32 kmrnctrlsta;
 
 	if (!locked) {
@@ -517,6 +532,7 @@ static s32 __e1000_read_kmrn_reg(struct e1000_hw *hw, u32 offset, u16 *data,
  **/
 s32 e1000e_read_kmrn_reg(struct e1000_hw *hw, u32 offset, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000_read_kmrn_reg(hw, offset, data, false);
 }
 
@@ -532,6 +548,7 @@ s32 e1000e_read_kmrn_reg(struct e1000_hw *hw, u32 offset, u16 *data)
  **/
 s32 e1000e_read_kmrn_reg_locked(struct e1000_hw *hw, u32 offset, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000_read_kmrn_reg(hw, offset, data, true);
 }
 
@@ -549,6 +566,7 @@ s32 e1000e_read_kmrn_reg_locked(struct e1000_hw *hw, u32 offset, u16 *data)
 static s32 __e1000_write_kmrn_reg(struct e1000_hw *hw, u32 offset, u16 data,
 				  bool locked)
 {
+	printk("called: %s\n", __func__);
 	u32 kmrnctrlsta;
 
 	if (!locked) {
@@ -586,6 +604,7 @@ static s32 __e1000_write_kmrn_reg(struct e1000_hw *hw, u32 offset, u16 data,
  **/
 s32 e1000e_write_kmrn_reg(struct e1000_hw *hw, u32 offset, u16 data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000_write_kmrn_reg(hw, offset, data, false);
 }
 
@@ -600,6 +619,7 @@ s32 e1000e_write_kmrn_reg(struct e1000_hw *hw, u32 offset, u16 data)
  **/
 s32 e1000e_write_kmrn_reg_locked(struct e1000_hw *hw, u32 offset, u16 data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000_write_kmrn_reg(hw, offset, data, true);
 }
 
@@ -611,6 +631,7 @@ s32 e1000e_write_kmrn_reg_locked(struct e1000_hw *hw, u32 offset, u16 data)
  **/
 static s32 e1000_set_master_slave_mode(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 phy_data;
 
@@ -650,6 +671,7 @@ static s32 e1000_set_master_slave_mode(struct e1000_hw *hw)
  **/
 s32 e1000_copper_link_setup_82577(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 phy_data;
 
@@ -704,6 +726,7 @@ s32 e1000_copper_link_setup_82577(struct e1000_hw *hw)
  **/
 s32 e1000e_copper_link_setup_m88(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_data;
@@ -850,6 +873,7 @@ s32 e1000e_copper_link_setup_m88(struct e1000_hw *hw)
  **/
 s32 e1000e_copper_link_setup_igp(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 data;
@@ -943,6 +967,7 @@ s32 e1000e_copper_link_setup_igp(struct e1000_hw *hw)
  **/
 static s32 e1000_phy_setup_autoneg(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 mii_autoneg_adv_reg;
@@ -1094,6 +1119,7 @@ static s32 e1000_phy_setup_autoneg(struct e1000_hw *hw)
  **/
 static s32 e1000_copper_link_autoneg(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_ctrl;
@@ -1156,6 +1182,7 @@ static s32 e1000_copper_link_autoneg(struct e1000_hw *hw)
  **/
 s32 e1000e_setup_copper_link(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	bool link;
 
@@ -1207,6 +1234,7 @@ s32 e1000e_setup_copper_link(struct e1000_hw *hw)
  **/
 s32 e1000e_phy_force_speed_duplex_igp(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_data;
@@ -1271,6 +1299,7 @@ s32 e1000e_phy_force_speed_duplex_igp(struct e1000_hw *hw)
  **/
 s32 e1000e_phy_force_speed_duplex_m88(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_data;
@@ -1379,6 +1408,7 @@ s32 e1000e_phy_force_speed_duplex_m88(struct e1000_hw *hw)
  **/
 s32 e1000_phy_force_speed_duplex_ife(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 data;
@@ -1445,6 +1475,7 @@ s32 e1000_phy_force_speed_duplex_ife(struct e1000_hw *hw)
  **/
 void e1000e_phy_force_speed_duplex_setup(struct e1000_hw *hw, u16 *phy_ctrl)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_mac_info *mac = &hw->mac;
 	u32 ctrl;
 
@@ -1506,6 +1537,7 @@ void e1000e_phy_force_speed_duplex_setup(struct e1000_hw *hw, u16 *phy_ctrl)
  **/
 s32 e1000e_set_d3_lplu_state(struct e1000_hw *hw, bool active)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 data;
@@ -1577,6 +1609,7 @@ s32 e1000e_set_d3_lplu_state(struct e1000_hw *hw, bool active)
  **/
 s32 e1000e_check_downshift(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_data, offset, mask;
@@ -1618,6 +1651,7 @@ s32 e1000e_check_downshift(struct e1000_hw *hw)
  **/
 s32 e1000_check_polarity_m88(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 data;
@@ -1643,6 +1677,7 @@ s32 e1000_check_polarity_m88(struct e1000_hw *hw)
  **/
 s32 e1000_check_polarity_igp(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 data, offset, mask;
@@ -1684,6 +1719,7 @@ s32 e1000_check_polarity_igp(struct e1000_hw *hw)
  **/
 s32 e1000_check_polarity_ife(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_data, offset, mask;
@@ -1717,6 +1753,7 @@ s32 e1000_check_polarity_ife(struct e1000_hw *hw)
  **/
 static s32 e1000_wait_autoneg(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 	u16 i, phy_status;
 
@@ -1751,6 +1788,7 @@ static s32 e1000_wait_autoneg(struct e1000_hw *hw)
 s32 e1000e_phy_has_link_generic(struct e1000_hw *hw, u32 iterations,
 				u32 usec_interval, bool *success)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 	u16 i, phy_status;
 
@@ -1799,6 +1837,7 @@ s32 e1000e_phy_has_link_generic(struct e1000_hw *hw, u32 iterations,
  **/
 s32 e1000e_get_cable_length_m88(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_data, index;
@@ -1834,6 +1873,7 @@ s32 e1000e_get_cable_length_m88(struct e1000_hw *hw)
  **/
 s32 e1000e_get_cable_length_igp_2(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_data, i, agc_value = 0;
@@ -1902,6 +1942,7 @@ s32 e1000e_get_cable_length_igp_2(struct e1000_hw *hw)
  **/
 s32 e1000e_get_phy_info_m88(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_data;
@@ -1973,6 +2014,7 @@ s32 e1000e_get_phy_info_m88(struct e1000_hw *hw)
  **/
 s32 e1000e_get_phy_info_igp(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 data;
@@ -2031,6 +2073,7 @@ s32 e1000e_get_phy_info_igp(struct e1000_hw *hw)
  **/
 s32 e1000_get_phy_info_ife(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 data;
@@ -2084,6 +2127,7 @@ s32 e1000_get_phy_info_ife(struct e1000_hw *hw)
  **/
 s32 e1000e_phy_sw_reset(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 phy_ctrl;
 
@@ -2112,6 +2156,7 @@ s32 e1000e_phy_sw_reset(struct e1000_hw *hw)
  **/
 s32 e1000e_phy_hw_reset_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u32 ctrl;
@@ -2151,6 +2196,7 @@ s32 e1000e_phy_hw_reset_generic(struct e1000_hw *hw)
  **/
 s32 e1000e_get_cfg_done_generic(struct e1000_hw __always_unused *hw)
 {
+	printk("called: %s\n", __func__);
 	mdelay(10);
 
 	return 0;
@@ -2164,6 +2210,7 @@ s32 e1000e_get_cfg_done_generic(struct e1000_hw __always_unused *hw)
  **/
 s32 e1000e_phy_init_script_igp3(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	e_dbg("Running IGP 3 PHY init script\n");
 
 	/* PHY init IGP 3 */
@@ -2247,6 +2294,7 @@ s32 e1000e_phy_init_script_igp3(struct e1000_hw *hw)
  **/
 enum e1000_phy_type e1000e_get_phy_type_from_id(u32 phy_id)
 {
+	printk("called: %s\n", __func__);
 	enum e1000_phy_type phy_type = e1000_phy_unknown;
 
 	switch (phy_id) {
@@ -2303,6 +2351,7 @@ enum e1000_phy_type e1000e_get_phy_type_from_id(u32 phy_id)
  **/
 s32 e1000e_determine_phy_address(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 phy_addr = 0;
 	u32 i;
 	enum e1000_phy_type phy_type = e1000_phy_unknown;
@@ -2339,6 +2388,7 @@ s32 e1000e_determine_phy_address(struct e1000_hw *hw)
  **/
 static u32 e1000_get_phy_addr_for_bm_page(u32 page, u32 reg)
 {
+	printk("called: %s\n", __func__);
 	u32 phy_addr = 2;
 
 	if ((page >= 768) || (page == 0 && reg == 25) || (reg == 31))
@@ -2358,6 +2408,7 @@ static u32 e1000_get_phy_addr_for_bm_page(u32 page, u32 reg)
  **/
 s32 e1000e_write_phy_reg_bm(struct e1000_hw *hw, u32 offset, u16 data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u32 page = offset >> IGP_PAGE_SHIFT;
 
@@ -2416,6 +2467,7 @@ release:
  **/
 s32 e1000e_read_phy_reg_bm(struct e1000_hw *hw, u32 offset, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u32 page = offset >> IGP_PAGE_SHIFT;
 
@@ -2473,6 +2525,7 @@ release:
  **/
 s32 e1000e_read_phy_reg_bm2(struct e1000_hw *hw, u32 offset, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 page = (u16)(offset >> IGP_PAGE_SHIFT);
 
@@ -2516,6 +2569,7 @@ release:
  **/
 s32 e1000e_write_phy_reg_bm2(struct e1000_hw *hw, u32 offset, u16 data)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 page = (u16)(offset >> IGP_PAGE_SHIFT);
 
@@ -2559,6 +2613,7 @@ release:
  **/
 s32 e1000_enable_phy_wakeup_reg_access_bm(struct e1000_hw *hw, u16 *phy_reg)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 temp;
 
@@ -2612,6 +2667,7 @@ s32 e1000_enable_phy_wakeup_reg_access_bm(struct e1000_hw *hw, u16 *phy_reg)
  **/
 s32 e1000_disable_phy_wakeup_reg_access_bm(struct e1000_hw *hw, u16 *phy_reg)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 
 	/* Select Port Control Registers page */
@@ -2658,6 +2714,7 @@ s32 e1000_disable_phy_wakeup_reg_access_bm(struct e1000_hw *hw, u16 *phy_reg)
 static s32 e1000_access_phy_wakeup_reg_bm(struct e1000_hw *hw, u32 offset,
 					  u16 *data, bool read, bool page_set)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 reg = BM_PHY_REG_NUM(offset);
 	u16 page = BM_PHY_REG_PAGE(offset);
@@ -2718,6 +2775,7 @@ static s32 e1000_access_phy_wakeup_reg_bm(struct e1000_hw *hw, u32 offset,
  **/
 void e1000_power_up_phy_copper(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 mii_reg = 0;
 
 	/* The PHY will retain its settings across a power down/up cycle */
@@ -2736,6 +2794,7 @@ void e1000_power_up_phy_copper(struct e1000_hw *hw)
  **/
 void e1000_power_down_phy_copper(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u16 mii_reg = 0;
 
 	/* The PHY will retain its settings across a power down/up cycle */
@@ -2759,6 +2818,7 @@ void e1000_power_down_phy_copper(struct e1000_hw *hw)
 static s32 __e1000_read_phy_reg_hv(struct e1000_hw *hw, u32 offset, u16 *data,
 				   bool locked, bool page_set)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 page = BM_PHY_REG_PAGE(offset);
 	u16 reg = BM_PHY_REG_NUM(offset);
@@ -2822,6 +2882,7 @@ out:
  **/
 s32 e1000_read_phy_reg_hv(struct e1000_hw *hw, u32 offset, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000_read_phy_reg_hv(hw, offset, data, false, false);
 }
 
@@ -2836,6 +2897,7 @@ s32 e1000_read_phy_reg_hv(struct e1000_hw *hw, u32 offset, u16 *data)
  **/
 s32 e1000_read_phy_reg_hv_locked(struct e1000_hw *hw, u32 offset, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000_read_phy_reg_hv(hw, offset, data, true, false);
 }
 
@@ -2850,6 +2912,7 @@ s32 e1000_read_phy_reg_hv_locked(struct e1000_hw *hw, u32 offset, u16 *data)
  **/
 s32 e1000_read_phy_reg_page_hv(struct e1000_hw *hw, u32 offset, u16 *data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000_read_phy_reg_hv(hw, offset, data, true, true);
 }
 
@@ -2866,6 +2929,7 @@ s32 e1000_read_phy_reg_page_hv(struct e1000_hw *hw, u32 offset, u16 *data)
 static s32 __e1000_write_phy_reg_hv(struct e1000_hw *hw, u32 offset, u16 data,
 				    bool locked, bool page_set)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u16 page = BM_PHY_REG_PAGE(offset);
 	u16 reg = BM_PHY_REG_NUM(offset);
@@ -2945,6 +3009,7 @@ out:
  **/
 s32 e1000_write_phy_reg_hv(struct e1000_hw *hw, u32 offset, u16 data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000_write_phy_reg_hv(hw, offset, data, false, false);
 }
 
@@ -2959,6 +3024,7 @@ s32 e1000_write_phy_reg_hv(struct e1000_hw *hw, u32 offset, u16 data)
  **/
 s32 e1000_write_phy_reg_hv_locked(struct e1000_hw *hw, u32 offset, u16 data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000_write_phy_reg_hv(hw, offset, data, true, false);
 }
 
@@ -2973,6 +3039,7 @@ s32 e1000_write_phy_reg_hv_locked(struct e1000_hw *hw, u32 offset, u16 data)
  **/
 s32 e1000_write_phy_reg_page_hv(struct e1000_hw *hw, u32 offset, u16 data)
 {
+	printk("called: %s\n", __func__);
 	return __e1000_write_phy_reg_hv(hw, offset, data, true, true);
 }
 
@@ -2982,6 +3049,7 @@ s32 e1000_write_phy_reg_page_hv(struct e1000_hw *hw, u32 offset, u16 data)
  **/
 static u32 e1000_get_phy_addr_for_hv_page(u32 page)
 {
+	printk("called: %s\n", __func__);
 	u32 phy_addr = 2;
 
 	if (page >= HV_INTC_FC_PAGE_START)
@@ -3005,6 +3073,7 @@ static u32 e1000_get_phy_addr_for_hv_page(u32 page)
 static s32 e1000_access_phy_debug_regs_hv(struct e1000_hw *hw, u32 offset,
 					  u16 *data, bool read)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val;
 	u32 addr_reg;
 	u32 data_reg;
@@ -3049,6 +3118,7 @@ static s32 e1000_access_phy_debug_regs_hv(struct e1000_hw *hw, u32 offset,
  **/
 s32 e1000_link_stall_workaround_hv(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	s32 ret_val = 0;
 	u16 data;
 
@@ -3094,6 +3164,7 @@ s32 e1000_link_stall_workaround_hv(struct e1000_hw *hw)
  **/
 s32 e1000_check_polarity_82577(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 data;
@@ -3116,6 +3187,7 @@ s32 e1000_check_polarity_82577(struct e1000_hw *hw)
  **/
 s32 e1000_phy_force_speed_duplex_82577(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_data;
@@ -3163,6 +3235,7 @@ s32 e1000_phy_force_speed_duplex_82577(struct e1000_hw *hw)
  **/
 s32 e1000_get_phy_info_82577(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 data;
@@ -3222,6 +3295,7 @@ s32 e1000_get_phy_info_82577(struct e1000_hw *hw)
  **/
 s32 e1000_get_cable_length_82577(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_phy_info *phy = &hw->phy;
 	s32 ret_val;
 	u16 phy_data, length;

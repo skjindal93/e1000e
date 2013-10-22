@@ -43,6 +43,7 @@
  **/
 static int e1000e_phc_adjfreq(struct ptp_clock_info *ptp, s32 delta)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = container_of(ptp, struct e1000_adapter,
 						     ptp_clock_info);
 	struct e1000_hw *hw = &adapter->hw;
@@ -89,6 +90,7 @@ static int e1000e_phc_adjfreq(struct ptp_clock_info *ptp, s32 delta)
  **/
 static int e1000e_phc_adjtime(struct ptp_clock_info *ptp, s64 delta)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = container_of(ptp, struct e1000_adapter,
 						     ptp_clock_info);
 	unsigned long flags;
@@ -113,6 +115,7 @@ static int e1000e_phc_adjtime(struct ptp_clock_info *ptp, s64 delta)
  **/
 static int e1000e_phc_gettime(struct ptp_clock_info *ptp, struct timespec *ts)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = container_of(ptp, struct e1000_adapter,
 						     ptp_clock_info);
 	unsigned long flags;
@@ -140,6 +143,7 @@ static int e1000e_phc_gettime(struct ptp_clock_info *ptp, struct timespec *ts)
 static int e1000e_phc_settime(struct ptp_clock_info *ptp,
 			      const struct timespec *ts)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = container_of(ptp, struct e1000_adapter,
 						     ptp_clock_info);
 	unsigned long flags;
@@ -168,11 +172,13 @@ static int e1000e_phc_enable(struct ptp_clock_info __always_unused *ptp,
 			     struct ptp_clock_request __always_unused *request,
 			     int __always_unused on)
 {
+	printk("called: %s\n", __func__);
 	return -EOPNOTSUPP;
 }
 
 static void e1000e_systim_overflow_work(struct work_struct *work)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_adapter *adapter = container_of(work, struct e1000_adapter,
 						     systim_overflow_work.work);
 	struct e1000_hw *hw = &adapter->hw;
@@ -209,6 +215,7 @@ static const struct ptp_clock_info e1000e_ptp_clock_info = {
  **/
 void e1000e_ptp_init(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_hw *hw = &adapter->hw;
 
 	adapter->ptp_clock = NULL;
@@ -263,6 +270,7 @@ void e1000e_ptp_init(struct e1000_adapter *adapter)
  **/
 void e1000e_ptp_remove(struct e1000_adapter *adapter)
 {
+	printk("called: %s\n", __func__);
 	if (!(adapter->flags & FLAG_HAS_HW_TIMESTAMP))
 		return;
 

@@ -119,6 +119,7 @@ struct _kc_ethtool_ops {
 #define ethtool_op_get_link _kc_ethtool_op_get_link
 u32 _kc_ethtool_op_get_link(struct net_device *dev)
 {
+	printk("called: %s\n", __func__);
 	return netif_carrier_ok(dev) ? 1 : 0;
 }
 
@@ -126,6 +127,7 @@ u32 _kc_ethtool_op_get_link(struct net_device *dev)
 #define ethtool_op_get_tx_csum _kc_ethtool_op_get_tx_csum
 u32 _kc_ethtool_op_get_tx_csum(struct net_device *dev)
 {
+	printk("called: %s\n", __func__);
 #ifdef NETIF_F_IP_CSUM
 	return (dev->features & NETIF_F_IP_CSUM) != 0;
 #else
@@ -137,6 +139,7 @@ u32 _kc_ethtool_op_get_tx_csum(struct net_device *dev)
 #define ethtool_op_set_tx_csum _kc_ethtool_op_set_tx_csum
 int _kc_ethtool_op_set_tx_csum(struct net_device *dev, u32 data)
 {
+	printk("called: %s\n", __func__);
 #ifdef NETIF_F_IP_CSUM
 	if (data)
 #ifdef NETIF_F_IPV6_CSUM
@@ -157,6 +160,7 @@ int _kc_ethtool_op_set_tx_csum(struct net_device *dev, u32 data)
 #define ethtool_op_get_sg _kc_ethtool_op_get_sg
 u32 _kc_ethtool_op_get_sg(struct net_device *dev)
 {
+	printk("called: %s\n", __func__);
 #ifdef NETIF_F_SG
 	return (dev->features & NETIF_F_SG) != 0;
 #else
@@ -168,6 +172,7 @@ u32 _kc_ethtool_op_get_sg(struct net_device *dev)
 #define ethtool_op_set_sg _kc_ethtool_op_set_sg
 int _kc_ethtool_op_set_sg(struct net_device *dev, u32 data)
 {
+	printk("called: %s\n", __func__);
 #ifdef NETIF_F_SG
 	if (data)
 		dev->features |= NETIF_F_SG;
@@ -182,6 +187,7 @@ int _kc_ethtool_op_set_sg(struct net_device *dev, u32 data)
 #define ethtool_op_get_tso _kc_ethtool_op_get_tso
 u32 _kc_ethtool_op_get_tso(struct net_device *dev)
 {
+	printk("called: %s\n", __func__);
 #ifdef NETIF_F_TSO
 	return (dev->features & NETIF_F_TSO) != 0;
 #else
@@ -193,6 +199,7 @@ u32 _kc_ethtool_op_get_tso(struct net_device *dev)
 #define ethtool_op_set_tso _kc_ethtool_op_set_tso
 int _kc_ethtool_op_set_tso(struct net_device *dev, u32 data)
 {
+	printk("called: %s\n", __func__);
 #ifdef NETIF_F_TSO
 	if (data)
 		dev->features |= NETIF_F_TSO;
@@ -207,6 +214,7 @@ int _kc_ethtool_op_set_tso(struct net_device *dev, u32 data)
 
 static int ethtool_get_settings(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_cmd cmd = { ETHTOOL_GSET };
 	int err;
 
@@ -224,6 +232,7 @@ static int ethtool_get_settings(struct net_device *dev, void *useraddr)
 
 static int ethtool_set_settings(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_cmd cmd;
 
 	if (!ethtool_ops->set_settings)
@@ -237,6 +246,7 @@ static int ethtool_set_settings(struct net_device *dev, void *useraddr)
 
 static int ethtool_get_drvinfo(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_drvinfo info;
 	struct ethtool_ops *ops = ethtool_ops;
 
@@ -263,6 +273,7 @@ static int ethtool_get_drvinfo(struct net_device *dev, void *useraddr)
 
 static int ethtool_get_regs(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_regs regs;
 	struct ethtool_ops *ops = ethtool_ops;
 	void *regbuf;
@@ -299,6 +310,7 @@ out:
 
 static int ethtool_get_wol(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_wolinfo wol = { ETHTOOL_GWOL };
 
 	if (!ethtool_ops->get_wol)
@@ -313,6 +325,7 @@ static int ethtool_get_wol(struct net_device *dev, char *useraddr)
 
 static int ethtool_set_wol(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_wolinfo wol;
 
 	if (!ethtool_ops->set_wol)
@@ -326,6 +339,7 @@ static int ethtool_set_wol(struct net_device *dev, char *useraddr)
 
 static int ethtool_get_msglevel(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_value edata = { ETHTOOL_GMSGLVL };
 
 	if (!ethtool_ops->get_msglevel)
@@ -340,6 +354,7 @@ static int ethtool_get_msglevel(struct net_device *dev, char *useraddr)
 
 static int ethtool_set_msglevel(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_value edata;
 
 	if (!ethtool_ops->set_msglevel)
@@ -354,6 +369,7 @@ static int ethtool_set_msglevel(struct net_device *dev, char *useraddr)
 
 static int ethtool_nway_reset(struct net_device *dev)
 {
+	printk("called: %s\n", __func__);
 	if (!ethtool_ops->nway_reset)
 		return -EOPNOTSUPP;
 
@@ -362,6 +378,7 @@ static int ethtool_nway_reset(struct net_device *dev)
 
 static int ethtool_get_link(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_value edata = { ETHTOOL_GLINK };
 
 	if (!ethtool_ops->get_link)
@@ -376,6 +393,7 @@ static int ethtool_get_link(struct net_device *dev, void *useraddr)
 
 static int ethtool_get_eeprom(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_eeprom eeprom;
 	struct ethtool_ops *ops = ethtool_ops;
 	u8 *data;
@@ -421,6 +439,7 @@ out:
 
 static int ethtool_set_eeprom(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_eeprom eeprom;
 	struct ethtool_ops *ops = ethtool_ops;
 	u8 *data;
@@ -462,6 +481,7 @@ out:
 
 static int ethtool_get_coalesce(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_coalesce coalesce = { ETHTOOL_GCOALESCE };
 
 	if (!ethtool_ops->get_coalesce)
@@ -476,6 +496,7 @@ static int ethtool_get_coalesce(struct net_device *dev, void *useraddr)
 
 static int ethtool_set_coalesce(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_coalesce coalesce;
 
 	if (!ethtool_ops->get_coalesce)
@@ -489,6 +510,7 @@ static int ethtool_set_coalesce(struct net_device *dev, void *useraddr)
 
 static int ethtool_get_ringparam(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_ringparam ringparam = { ETHTOOL_GRINGPARAM };
 
 	if (!ethtool_ops->get_ringparam)
@@ -503,6 +525,7 @@ static int ethtool_get_ringparam(struct net_device *dev, void *useraddr)
 
 static int ethtool_set_ringparam(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_ringparam ringparam;
 
 	if (!ethtool_ops->get_ringparam)
@@ -516,6 +539,7 @@ static int ethtool_set_ringparam(struct net_device *dev, void *useraddr)
 
 static int ethtool_get_pauseparam(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_pauseparam pauseparam = { ETHTOOL_GPAUSEPARAM };
 
 	if (!ethtool_ops->get_pauseparam)
@@ -530,6 +554,7 @@ static int ethtool_get_pauseparam(struct net_device *dev, void *useraddr)
 
 static int ethtool_set_pauseparam(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_pauseparam pauseparam;
 
 	if (!ethtool_ops->get_pauseparam)
@@ -543,6 +568,7 @@ static int ethtool_set_pauseparam(struct net_device *dev, void *useraddr)
 
 static int ethtool_get_rx_csum(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_value edata = { ETHTOOL_GRXCSUM };
 
 	if (!ethtool_ops->get_rx_csum)
@@ -557,6 +583,7 @@ static int ethtool_get_rx_csum(struct net_device *dev, char *useraddr)
 
 static int ethtool_set_rx_csum(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_value edata;
 
 	if (!ethtool_ops->set_rx_csum)
@@ -571,6 +598,7 @@ static int ethtool_set_rx_csum(struct net_device *dev, char *useraddr)
 
 static int ethtool_get_tx_csum(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_value edata = { ETHTOOL_GTXCSUM };
 
 	if (!ethtool_ops->get_tx_csum)
@@ -585,6 +613,7 @@ static int ethtool_get_tx_csum(struct net_device *dev, char *useraddr)
 
 static int ethtool_set_tx_csum(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_value edata;
 
 	if (!ethtool_ops->set_tx_csum)
@@ -598,6 +627,7 @@ static int ethtool_set_tx_csum(struct net_device *dev, char *useraddr)
 
 static int ethtool_get_sg(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_value edata = { ETHTOOL_GSG };
 
 	if (!ethtool_ops->get_sg)
@@ -612,6 +642,7 @@ static int ethtool_get_sg(struct net_device *dev, char *useraddr)
 
 static int ethtool_set_sg(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_value edata;
 
 	if (!ethtool_ops->set_sg)
@@ -625,6 +656,7 @@ static int ethtool_set_sg(struct net_device *dev, char *useraddr)
 
 static int ethtool_get_tso(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_value edata = { ETHTOOL_GTSO };
 
 	if (!ethtool_ops->get_tso)
@@ -639,6 +671,7 @@ static int ethtool_get_tso(struct net_device *dev, char *useraddr)
 
 static int ethtool_set_tso(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_value edata;
 
 	if (!ethtool_ops->set_tso)
@@ -652,6 +685,7 @@ static int ethtool_set_tso(struct net_device *dev, char *useraddr)
 
 static int ethtool_self_test(struct net_device *dev, char *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_test test;
 	struct ethtool_ops *ops = ethtool_ops;
 	u64 *data;
@@ -685,6 +719,7 @@ out:
 
 static int ethtool_get_strings(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_gstrings gstrings;
 	struct ethtool_ops *ops = ethtool_ops;
 	u8 *data;
@@ -732,6 +767,7 @@ out:
 
 static int ethtool_phys_id(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_value id;
 
 	if (!ethtool_ops->phys_id)
@@ -745,6 +781,7 @@ static int ethtool_phys_id(struct net_device *dev, void *useraddr)
 
 static int ethtool_get_stats(struct net_device *dev, void *useraddr)
 {
+	printk("called: %s\n", __func__);
 	struct ethtool_stats stats;
 	struct ethtool_ops *ops = ethtool_ops;
 	u64 *data;
@@ -781,6 +818,7 @@ out:
 #define ETHTOOL_OPS_COMPAT
 int ethtool_ioctl(struct ifreq *ifr)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *dev = __dev_get_by_name(ifr->ifr_name);
 	void *useraddr = (void *)ifr->ifr_data;
 	u32 ethcmd;
@@ -926,6 +964,7 @@ struct _kc_net_dev_ext {
 
 int _kc_mii_ethtool_gset(struct mii_if_info *mii, struct ethtool_cmd *ecmd)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *dev = mii->dev;
 	u32 advert, bmcr, lpa, nego;
 
@@ -987,6 +1026,7 @@ int _kc_mii_ethtool_gset(struct mii_if_info *mii, struct ethtool_cmd *ecmd)
 
 int _kc_mii_ethtool_sset(struct mii_if_info *mii, struct ethtool_cmd *ecmd)
 {
+	printk("called: %s\n", __func__);
 	struct net_device *dev = mii->dev;
 
 	if (ecmd->speed != SPEED_10 && ecmd->speed != SPEED_100)
@@ -1058,6 +1098,7 @@ int _kc_mii_ethtool_sset(struct mii_if_info *mii, struct ethtool_cmd *ecmd)
 
 int _kc_mii_link_ok(struct mii_if_info *mii)
 {
+	printk("called: %s\n", __func__);
 	/* first, a dummy read, needed to latch some MII phys */
 	mii->mdio_read(mii->dev, mii->phy_id, MII_BMSR);
 	if (mii->mdio_read(mii->dev, mii->phy_id, MII_BMSR) & BMSR_LSTATUS)
@@ -1067,6 +1108,7 @@ int _kc_mii_link_ok(struct mii_if_info *mii)
 
 int _kc_mii_nway_restart(struct mii_if_info *mii)
 {
+	printk("called: %s\n", __func__);
 	int bmcr;
 	int r = -EINVAL;
 
@@ -1084,6 +1126,7 @@ int _kc_mii_nway_restart(struct mii_if_info *mii)
 
 void _kc_mii_check_link(struct mii_if_info *mii)
 {
+	printk("called: %s\n", __func__);
 	int cur_link = mii_link_ok(mii);
 	int prev_link = netif_carrier_ok(mii->dev);
 
@@ -1098,6 +1141,7 @@ int _kc_generic_mii_ioctl(struct mii_if_info *mii_if,
 			  struct mii_ioctl_data *mii_data, int cmd,
 			  unsigned int *duplex_chg_out)
 {
+	printk("called: %s\n", __func__);
 	int rc = 0;
 	unsigned int duplex_changed = 0;
 

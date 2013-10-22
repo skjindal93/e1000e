@@ -38,6 +38,7 @@
  **/
 static u8 e1000_calculate_checksum(u8 *buffer, u32 length)
 {
+	printk("called: %s\n", __func__);
 	u32 i;
 	u8 sum = 0;
 
@@ -61,6 +62,7 @@ static u8 e1000_calculate_checksum(u8 *buffer, u32 length)
  **/
 static s32 e1000_mng_enable_host_if(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 hicr;
 	u8 i;
 
@@ -100,6 +102,7 @@ static s32 e1000_mng_enable_host_if(struct e1000_hw *hw)
  **/
 bool e1000e_check_mng_mode_generic(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 fwsm = er32(FWSM);
 
 	return (fwsm & E1000_FWSM_MODE_MASK) ==
@@ -115,6 +118,7 @@ bool e1000e_check_mng_mode_generic(struct e1000_hw *hw)
  **/
 bool e1000e_enable_tx_pkt_filtering(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_host_mng_dhcp_cookie *hdr = &hw->mng_cookie;
 	u32 *buffer = (u32 *)&hw->mng_cookie;
 	u32 offset;
@@ -174,6 +178,7 @@ bool e1000e_enable_tx_pkt_filtering(struct e1000_hw *hw)
 static s32 e1000_mng_write_cmd_header(struct e1000_hw *hw,
 				      struct e1000_host_mng_command_header *hdr)
 {
+	printk("called: %s\n", __func__);
 	u16 i, length = sizeof(struct e1000_host_mng_command_header);
 
 	/* Write the whole command header structure with new checksum. */
@@ -205,6 +210,7 @@ static s32 e1000_mng_write_cmd_header(struct e1000_hw *hw,
 static s32 e1000_mng_host_if_write(struct e1000_hw *hw, u8 *buffer,
 				   u16 length, u16 offset, u8 *sum)
 {
+	printk("called: %s\n", __func__);
 	u8 *tmp;
 	u8 *bufptr = buffer;
 	u32 data = 0;
@@ -272,6 +278,7 @@ static s32 e1000_mng_host_if_write(struct e1000_hw *hw, u8 *buffer,
  **/
 s32 e1000e_mng_write_dhcp_info(struct e1000_hw *hw, u8 *buffer, u16 length)
 {
+	printk("called: %s\n", __func__);
 	struct e1000_host_mng_command_header hdr;
 	s32 ret_val;
 	u32 hicr;
@@ -314,6 +321,7 @@ s32 e1000e_mng_write_dhcp_info(struct e1000_hw *hw, u8 *buffer, u16 length)
  **/
 bool e1000e_enable_mng_pass_thru(struct e1000_hw *hw)
 {
+	printk("called: %s\n", __func__);
 	u32 manc;
 	u32 fwsm, factps;
 
